@@ -49,7 +49,7 @@ img { display: block; }
 .stage {
   position: relative;
   width: 1728px;
-  height: 20838px; /* Figma frame is 11928; extended for Frame 23, Shifting gears, user testing, the dark-mode gaps and the trade-off section */
+  height: 21358px; /* Figma frame is 11928; extended for Frame 23, Shifting gears, user testing, the dark-mode gaps and the trade-off section */
   margin: 0 auto;
   z-index: 1;                           /* above the dark-mode reveal */
 }
@@ -198,6 +198,39 @@ body.is-dark .hero-btn { color: var(--ink-2); }
 .viz-meter .seg.tense { background: rgba(250,178,25,0.22); }
 .viz-pin { position: absolute; top: -16px; left: calc(83.33% - 7px); width: 0; height: 0; border: 7px solid transparent; border-top: 9px solid #fff; }
 .viz-note { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.5); font-weight: 300; }
+/* charts (inline SVG): BookMyShow red for the finding, neutrals for everything else */
+.viz-chart { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--roboto); }
+.viz-chart text { fill: rgba(255,255,255,0.7); font-size: 13px; font-weight: 400; }
+.viz-chart .big { fill: #fff; font-size: 34px; font-weight: 400; }
+.viz-chart .cat { fill: rgba(255,255,255,0.8); }
+.viz-chart .val { fill: #fff; font-size: 12px; font-weight: 500; }
+.viz-chart .on { fill: var(--red); font-weight: 500; }
+.viz-chart .mk.ok { stroke: rgba(255,255,255,0.22); }
+.viz-chart .mk.mid { stroke: rgba(232,53,77,0.45); }
+.viz-chart .mk.hi { stroke: var(--red); }
+.viz-chart rect.mk.ok { fill: rgba(255,255,255,0.22); stroke: none; }
+.viz-chart rect.mk.hi { fill: var(--red); stroke: none; }
+.viz-chart .needle { stroke: #fff; }
+.viz-chart .hub { fill: #fff; }
+.viz-chart .mk { transition: opacity .15s; }
+.viz-chart:hover .mk { opacity: .6; }
+.viz-chart .mk:hover { opacity: 1; }
+.viz-sum b { color: var(--red); font-weight: 500; }
+
+/* ---------- 2b · From the design brief ---------- */
+.brief-k { font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
+.brief-h { font-size: 48px; line-height: 1.3; font-weight: 300; letter-spacing: -0.528px; color: var(--ink-2); }
+.brief-role { font-size: 22px; line-height: 1.5; font-weight: 300; color: var(--ink-2); }
+.brief-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.brief-card { border: 1px solid var(--line); border-radius: 20px; padding: 28px 28px 30px; background: var(--surface); }
+.brief-card h3 { margin: 0 0 12px; font-size: 22px; font-weight: 500; color: var(--ink-2); }
+.brief-card p { margin: 0; font-size: 18px; line-height: 1.5; font-weight: 300; color: var(--ink-2); }
+.brief-card .brief-note { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 16px; color: var(--muted); }
+.brief-scope { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.brief-scope-l { font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+.brief-chip { font-size: 16px; padding: 10px 18px; border-radius: 99px; background: #f1f1f3; color: var(--ink-2); }
+.quote-by { transform: translateX(-50%); white-space: nowrap; font-size: 16px; font-weight: 400; color: var(--muted); letter-spacing: .02em; }
+.quote-by::before { content: '— '; }
 .f-test .test-chips { justify-content: flex-start; gap: 0; }
 /* scoped under .f-test so dark mode's light chip text (body.is-dark .j-chip) can't wash these out */
 .f-test .test-chips .j-chip { height: 48px; padding: 0 16px; font-size: 16px; background: #c2e5ff; color: #1e1e1e; }
@@ -530,6 +563,8 @@ body.is-dark .arrow-ink path { fill: #8a8a96; }
   .test-labels { display: none !important; }                 /* each chart carries its own title on mobile */
   .viz-title { display: block; }
   .test-viz { gap: 28px !important; }
+  .viz-tile.r { bottom: auto !important; }
+  .viz-chart { max-width: 300px; }
   .viz-tile.r { width: 100% !important; }
   .test-label { font-size: 15px; white-space: normal; opacity: .85; }
   .test-chips.r { flex-wrap: nowrap; }
@@ -557,6 +592,16 @@ body.is-dark .arrow-ink path { fill: #8a8a96; }
   /* 2 · quote */
   .quote { white-space: normal; line-height: 1.5; }
   .quote br { display: none; }
+  .quote-by { white-space: normal; font-size: 14px; }
+
+  /* 2b · brief */
+  .brief-h { font-size: 30px; }
+  .brief-role { font-size: 17px; }
+  .brief-cards { grid-template-columns: 1fr; gap: 14px; }
+  .brief-card { padding: 20px; }
+  .brief-card h3 { font-size: 19px; }
+  .brief-card p { font-size: 16px; }
+  .brief-chip { font-size: 14px; padding: 8px 14px; }
 
   /* 3 · values: cards keep their designed geometry and scale to fit */
   .cards { display: flex; flex-direction: column; gap: 24px; }
