@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Split Booking Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Inter:wght@400;500&family=EB+Garamond&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Page contents indicator (built from the sections' data-toc labels by nav.js) -->
+<nav class="toc" aria-label="Page contents">
+  <ol class="toc-list"></ol>
+  <div class="toc-progress" aria-hidden="true"><i></i></div>
+</nav>
+<main class="stage" id="stage">
+
+  <!-- ===== Page-level decorations (outside frames in Figma) ===== -->
+  <div class="a mh" style="left:440px;top:4549px;width:995px;height:347px" aria-hidden="true"><span class="fill" style="inset:-0.58% -0.2% -0.58% -1.35%"><img src="assets/vector4.svg" alt="" data-arrow="13,349"></span></div>
+  <div class="a mh" style="left:588px;top:6775px;width:1021.436px;height:361px" aria-hidden="true"><span class="fill" style="inset:-0.55% -0.2% -0.54% -0.2%"><img src="assets/vector5.svg" alt="" data-arrow="2,273"></span></div>
+  <div class="a mh rot" style="left:402.08px;top:8159.08px;width:954.827px;height:954.827px" aria-hidden="true">
+    <div style="transform:rotate(-24.5deg)"><div class="ell"><span class="fill" style="inset:-13.87%"><img src="assets/ellipse5.svg" alt=""></span></div></div>
+  </div>
+
+  <!-- ===== 1 · Hero ===== -->
+  <section class="frame f-hero" data-toc="Intro" style="left:140px;top:110px;width:1448px;height:900px">
+    <h1 class="a r t96" style="left:0;top:40px;width:1448px">Um guys..</h1>
+    <p class="a r t96" style="left:0;top:160px;width:1448px">you still haven't paid me for the</p>
+    <div class="a r imgbox hero-logo" style="left:414px;top:340px;width:620px;height:176px;--ar:965/274;--mw:420px"><img class="cover" src="assets/bookmyshow-logo.png" alt="BookMyShow"></div>
+    <p class="a r t96 tickets" style="left:0;top:600px;width:1448px">tickets from that day....</p>
+    <div class="a r hero-cta" style="left:0;top:776px;width:1448px">
+      <a class="hero-btn primary" href="https://www.figma.com/design/VgETV6KyHXm8IKjcBon5Vu/navi-des-task?node-id=0-1&amp;t=3x4AJTRaOaruK1Uv-1" target="_blank" rel="noopener">See my Figma file <span aria-hidden="true">↗</span></a>
+      <a class="hero-btn" href="https://www.figma.com/board/V90Hs1obiRLPqSWpvGNdHS/navi-destask?node-id=0-1&amp;t=aed6UTySaktzujW2-1" target="_blank" rel="noopener">See my FigJam board <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <!-- ===== 2 · Quote ===== -->
+  <section class="frame f-quote" data-toc="Problem" style="left:286px;top:1084px;width:1230px;height:360px">
+    <blockquote class="a r quote" style="left:597px;top:125px">"Every time our group plans a movie, one person ends up paying <b class="hl">₹2,500-₹3,000</b> upfront <br>just so we don't lose seats while waiting for everyone to confirm. Then you spend days <br><b class="hl">chasing people for money.</b> If you wait for everyone first, the good seats are gone. Why isn't <br>there an easier way to block good seats, some pre-booking together?"</blockquote>
+    <div class="a mh rot" style="left:806.96px;top:107.23px;width:165.075px;height:62.536px" aria-hidden="true">
+      <div style="transform:rotate(7.09deg)"><div style="position:relative;width:161px;height:43px"><span class="fill" style="inset:-15.09% -0.9% -12.29% -0.66%"><img src="assets/vector1.svg" alt=""></span></div></div>
+    </div>
+    <div class="a mh rot" style="left:96px;top:112.19px;width:307px;height:170.745px" aria-hidden="true">
+      <div style="transform:rotate(16.98deg)"><div style="position:relative;width:293.876px;height:88.806px"><span class="fill" style="inset:-6.46% -0.4% -4.72% -0.41%"><img src="assets/vector3.svg" alt=""></span></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 3 · Brand values ===== -->
+  <section class="frame f-values" data-toc="Brand" style="left:118px;top:1818px;width:1537px;height:587px">
+    <h2 class="a r values-h" style="left:30px;top:34px;width:1284px">Before diving into the problem statement i wanted to understand <span class="gap">                      </span><img class="inline-logo" src="assets/bookmyshow-logo.png" alt="BookMyShow"> values as a <u>brand and company</u></h2>
+    <div class="a mh imgbox" style="left:291px;top:105px;width:228px;height:65px"><img class="cover" src="assets/bookmyshow-logo.png" alt=""></div>
+
+    <div class="cards">
+      <!-- data-to = where each shape moves when the card scrolls into view: left,top[,width,height] -->
+      <div class="a r card" data-fit data-anim="line" style="left:30px;top:225px;width:439px;height:289px">
+        <p class="a card-t" style="left:139.5px;top:45px;transform:translateX(-50%);white-space:nowrap">Simplicity ("ASAP")</p>
+        <div class="a poly" data-to="115,140" style="left:179px;top:99px"><img src="assets/polygon.svg" alt=""></div>
+        <div class="a poly" data-to="210,140" style="left:261px;top:182px"><img src="assets/polygon.svg" alt=""></div>
+        <div class="a poly" data-to="305,140" style="left:311px;top:22px"><img src="assets/polygon.svg" alt=""></div>
+        <div class="a poly" data-to="20,140" style="left:27px;top:156px"><img src="assets/polygon.svg" alt=""></div>
+      </div>
+      <div class="a r card" data-fit data-anim="fluid" style="left:533px;top:225px;width:439px;height:289px">
+        <p class="a card-t" style="left:35px;top:45px;width:322px">Disruption: Challenging traditional norms</p>
+        <div class="a blk" data-to="150,118,140,140" style="left:35px;top:110px;width:140px;height:39px"></div>
+        <div class="a blk" data-to="168,128,132,122" style="left:196px;top:110px;width:140px;height:39px"></div>
+        <div class="a blk" data-to="146,138,126,126" style="left:35px;top:160px;width:301px;height:94px"></div>
+        <div class="a blk" data-to="176,114,116,142" style="left:348px;top:110px;width:58px;height:144px"></div>
+      </div>
+      <div class="a r card" data-fit data-anim="stairs" style="left:1036px;top:225px;width:439px;height:289px">
+        <p class="a card-t" style="left:146.5px;top:45px;transform:translateX(-50%);white-space:nowrap">Learning from Failure</p>
+        <div class="a blk" data-to="52,206,112,48" style="left:44px;top:215px;width:140px;height:39px"></div>
+        <div class="a blk" data-to="164,158,112,96" style="left:134px;top:160px;width:140px;height:39px"></div>
+        <div class="a blk" data-to="276,110,112,144" style="left:249px;top:93px;width:140px;height:39px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4 · Split pay research ===== -->
+  <section class="frame f-split" data-toc="Research" style="left:108px;top:2714px;width:1533px;height:840px">
+    <p class="a r t24" style="left:67px;top:43px;width:670px">While reading about the application , i read up on their split pay feature that came out around 2016</p>
+    <div class="a r imgbox shot" style="left:67px;top:138px;width:296px;height:466px;--ar:296/466;--mw:296px"><img class="fill-img" src="assets/splitpay-app.png" alt="BookMyShow Split Booking screen"></div>
+    <div class="a r imgbox shot" style="left:67px;top:643px;width:614px;height:125px;--ar:614/125"><img class="fill-img" src="assets/splitpay-news.png" alt="Description of the split booking flow"></div>
+    <p class="a r t24 lh15" style="left:906px;top:45px;width:549px">the system ultimetely failed because users natively stay on either upi ( upi came around 2018 ) or whatsapp to communicate regarding transfers.</p>
+    <div class="ov stickies s270">
+      <div class="a r sticky white" style="left:911px;top:197px"><p>every friend need to have acc</p><span>Manasi madan</span></div>
+      <div class="a r sticky white" style="left:1216.56px;top:197px"><p>needs to have “mywallet” connected- why are we pushing users towards something entirely new instead of what they are comfortable with ?</p><span>Manasi madan</span></div>
+      <div class="a r sticky white" style="left:911px;top:498.36px"><p>how to cancel?</p><span>Manasi madan</span></div>
+      <div class="a r sticky white" style="left:1216.56px;top:498.36px"><p>still only one friend pays ultimetly
+
+
+no accountabilty that system makes sure og person is paid back</p><span>Manasi madan</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 5 · Existing solutions ===== -->
+  <section class="frame f-solutions" style="left:119px;top:3703px;width:1534px;height:963px">
+    <p class="a r t24" style="left:31px;top:50px;width:670px">Like this there are other <span class="red">existing solutions/explorations </span></p>
+    <div class="a r sol-box" style="left:31px;top:128px;width:1460px;height:718px">
+      <div class="a r grp" data-fit style="left:48px;top:42px;width:309px;height:650px">
+        <div class="a imgbox r16" style="left:0;top:3px;width:148px;height:236px"><img class="cover" src="assets/zomato-1.png" alt="Zomato group ordering"></div>
+        <div class="a imgbox r16" style="left:200px;top:3px;width:109px;height:139px"><img class="cover" src="assets/zomato-2.png" alt="Zomato group ordering"></div>
+        <div class="a imgbox r16" style="left:41px;top:180px;width:268px;height:358px"><img class="cover" src="assets/zomato-3.png" alt="Zomato group order share sheet"></div>
+        <div class="a imgbox" style="left:74px;top:537px;width:200px;height:113px"><img class="cover" src="assets/zomato-logo.png" alt="Zomato"></div>
+      </div>
+      <div class="a r grp" data-fit style="left:474px;top:42px;width:944px;height:207px">
+        <div class="a imgbox" style="left:0;top:0;width:944px;height:194px"><img style="position:absolute;left:0;top:-56.75%;width:100%;height:156.85%;max-width:none" src="assets/paysquad-banner.png" alt="Paysquad screens"></div>
+        <div class="a imgbox round" style="left:0;top:142px;width:65px;height:65px"><img class="cover" src="assets/paysquad-logo.png" alt="Paysquad"></div>
+      </div>
+      <div class="a r grp" data-fit style="left:482px;top:307px;width:344px;height:365px">
+        <div class="a imgbox" style="left:0;top:0;width:101px;height:37px;border-radius:36px"><img style="position:absolute;left:-0.07%;top:-19.53%;width:100.14%;height:143.75%;max-width:none" src="assets/paysquad-wordmark.png" alt="Splitwise"></div>
+        <div class="a imgbox" style="left:0;top:44px;width:154px;height:321px"><img class="cover" src="assets/paysquad-1.png" alt="Splitwise add expense"></div>
+        <div class="a imgbox" style="left:189px;top:44px;width:155px;height:321px"><img class="cover" src="assets/paysquad-2.png" alt="Splitwise group"></div>
+      </div>
+      <div class="a r grp" data-fit style="left:885px;top:299px;width:553px;height:416px">
+        <div class="a imgbox" style="left:0;top:8px;width:553px;height:408px"><img class="cover" src="assets/cashapp.png" alt="Cash App pools"></div>
+        <div class="a imgbox" style="left:38px;top:0;width:45px;height:45px"><img style="position:absolute;left:-17.7%;top:-0.05%;width:135.4%;height:149.2%;max-width:none" src="assets/cashapp-logo.png" alt="Cash App"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6 · What works / doesn't ===== -->
+  <section class="frame f-works" style="left:131px;top:4761px;width:1508px;height:750px">
+    <div class="ov col-works">
+      <h3 class="a r t32" style="left:225px;top:165px">What works</h3>
+      <div class="ov pills">
+        <p class="a r chip red-chip nw" style="left:87px;top:251px">Web-link checkout requires no app download.</p>
+        <p class="a r chip red-chip" style="left:19px;top:345px"><span style="width:328px">Automates the split without stored wallets or manual math.</span></p>
+        <p class="a r chip red-chip nw" style="left:409px;top:399px">collaborative browsing</p>
+        <p class="a r chip red-chip nw" style="left:155px;top:486px">collecting money upfront</p>
+      </div>
+    </div>
+    <div class="ov col-doesnt">
+      <h3 class="a r t32 red" style="left:1064px;top:154px">What doesn’t</h3>
+      <div class="ov pills">
+        <p class="a r chip grey-chip" style="left:916px;top:251px"><span style="width:348px">collecting money upfront slows down spontaneous purchases.</span></p>
+        <p class="a r chip grey-chip nw" style="left:821px;top:369px">card hold for the entire order</p>
+        <p class="a r chip grey-chip nw" style="left:1147px;top:399px">order confirms at 100% ONLY</p>
+        <p class="a r chip grey-chip" style="left:936px;top:486px"><span style="width:328px">One person pays normally, and math happens later.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 7 · Talking to people ===== -->
+  <section class="frame f-talk" data-toc="Users" style="left:129px;top:5648px;width:1510px;height:559px">
+    <h2 class="a r h36" style="left:37px;top:57px;width:462px">Talking to people - understanding user goals</h2>
+    <p class="a r t20" style="left:32px;top:187px;width:558px">While working in the cafe i talked to some strangers to find out their habits regarding booking and payments .</p>
+    <div class="a r imgbox shot-r4" style="left:37px;top:273px;width:191.453px;height:84px;--ar:191.453/84;--mw:191px"><img class="fill-img" src="assets/cafe-note.png" alt="Working in the cafe"></div>
+    <div class="a r imgbox board" style="left:660px;top:56px;width:789px;height:444px;--ar:789/444"><img class="cover" style="object-position:bottom" src="assets/cafe-board.png" alt="Interview questions"></div>
+    <div class="a mh rot" style="left:211px;top:57px;width:259.438px;height:167.957px" aria-hidden="true">
+      <div style="transform:rotate(20.33deg)"><div style="position:relative;width:243.77px;height:88.806px"><span class="fill" style="inset:-6.32% -0.7% -4.59% -0.58%"><img src="assets/vector6.svg" alt=""></span></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 8 · Conversations ===== -->
+  <section class="frame f-conv" style="left:115px;top:6247px;width:1339px;height:673px">
+    <div class="ov conv">
+      <div class="ov hrow">
+        <h3 class="a r conv-h" style="left:35px;top:13px">Group of 4–5 Friends</h3>
+        <span class="a r conv-l" style="left:365px;top:28.82px">the conversation</span>
+      </div>
+      <p class="a r conv-p" style="left:35px;top:71.82px;width:558px">Last booked a weekend movie and a comedy show about two weeks ago. Two of them usually take charge of browsing BookMyShow, locking in the timing, and picking seats in the middle rows, low partcipation from group chat. One person payed the entire amount upfront because waiting for everyone to confirm means losing good seats. Afterward, they drop the total and a UPI ID on WhatsApp  on gc . previously they have also used splitwise but only when external purchases were laslos amade like popcorn . The most annoying part is the post-booking math splitting convenience fees, uneven snack orders, and figuring out who owes what when someone joins last minute. Everyone said they’d gladly pay their share upfront via a split-payment link before booking.</p>
+      <div class="ov pills">
+        <p class="a r pill" style="left:35px;top:251px;width:390px">remember who has paid and who has not.</p>
+        <p class="a r pill" style="left:35px;top:315px;width:279px">send reminders, multiple times.</p>
+        <p class="a r pill" style="left:329px;top:315px;width:264px">Back and forth from paytm</p>
+      </div>
+    </div>
+    <div class="ov conv">
+      <div class="ov hrow">
+        <h3 class="a r conv-h" style="left:35px;top:408px">2 Friends</h3>
+        <span class="a r conv-l" style="left:196px;top:426.18px">the conversation</span>
+      </div>
+      <p class="a r conv-p" style="left:35px;top:466.82px;width:558px">Booked an IMAX screening last month; they use BookMyShow roughly twice a month, mostly for movies and occasional live gigs. There’s no fixed planner—whoever spots the show first picks the timing and seats after a quick voice note or two on WhatsApp. That same person pays upfront and sends a screenshot of the final bill on WhatsApp, with the other usually settling via GPay within a day or two.</p>
+      <div class="ov pills">
+        <p class="a r pill" style="left:35px;top:578px;width:279px">handle replacement situations</p>
+        <p class="a r pill" style="left:329px;top:578px;width:320px">Whatsapp buried payment request</p>
+      </div>
+    </div>
+    <div class="ov conv">
+      <div class="ov hrow">
+        <h3 class="a r conv-h" style="left:674px;top:13px">Couple 1</h3>
+        <span class="a r conv-l" style="left:834px;top:30.82px">the conversation</span>
+      </div>
+      <p class="a r conv-p" style="left:674px;top:71.82px;width:558px">i just talk to a couple - it was a sort of a foucus group thing . one of them was the one who makes the plans and payment . she said its difficult to keep track of who paid fo what  and she usuallly has the money to pay upfront . she feels too lazy to run after  ppl asking for the money back and its diifuclt to keep tabs on who has back and who hasnt. she mostly uses whatsapp to communicate this but some ppl pay after 2-3 reminders and who has the time for that . plus one needs to keep the calculations also ready on them when asking for money back . cancellation were also one of the biggest isues . she recounted an incident where she paid for the group and one person backed out and woudnt pay back sayign he didnt even attend . on another accont she wasnt able to go to a movie and someone else went in her stead  but she was the one to pay still . he group also goes on all kind of outins , money shows , stand up , concert alike.  the other one was the one who usually forgets to pay and takes too long , whtasapp is difficult to respond to as messages get burried he even avoids opening texts .  lets try to get insights from this</p>
+      <div class="ov pills">
+        <p class="a r pill" style="left:674px;top:293.64px;width:272px">ends up being roup account</p>
+        <p class="a r pill" style="left:960px;top:293.64px;width:272px">Fear of loosing deals / seats</p>
+        <p class="a r pill" style="left:674px;top:358.64px;width:448px">no one is holding accountability for cancellation</p>
+        <p class="a r pill outline" style="left:674px;top:423.64px;width:224px">Avoids bills on whatapp</p>
+        <p class="a r pill outline" style="left:920px;top:423.64px;width:176px">owes ppl moeny</p>
+        <p class="a r pill outline" style="left:674px;top:488.64px;width:550px">Tries not to take lead because of the frustration involved</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 9 · Key insights ===== -->
+  <section class="frame f-insights" style="left:77px;top:6959px;width:1549px;height:585px">
+    <h2 class="a r h36" style="left:73px;top:54px;width:462px">Deducing the key insights from these conversations</h2>
+    <div class="a r stickies s240" style="left:73px;top:255px;width:1424px;height:240px">
+      <div class="sticky blue"><p>Paying upfront is easier than coordinating repayment.</p><span>Manasi madan</span></div>
+      <div class="sticky blue"><p>The organiser completes the booking quickly, but the financial coordination continues for days</p><span>Manasi madan</span></div>
+      <div class="sticky blue"><p>“I’m coming” is not the same as “I will pay.</p><span>Manasi madan</span></div>
+      <div class="sticky blue"><p>WhatsApp is the <u>coordination layer, </u>
+
+but it is not a reliable <u>task system.</u></p><span>Manasi madan</span></div>
+      <div class="sticky blue"><p>WhatsApp and upi are key applications in the process</p><span>Manasi madan</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 10 · Archetypes ===== -->
+  <section class="frame f-arche" data-toc="Archetypes" style="left:52px;top:7686px;width:1644px;height:1398px">
+    <div class="a r imgbox arche-logo" style="left:714px;top:614px;width:253px;height:72px;--ar:253/72;--mw:253px"><img class="cover" src="assets/bookmyshow-logo.png" alt="BookMyShow"></div>
+    <h2 class="a r h36" style="left:98px;top:35px;width:782px">During the user study i notice 3 user archetypes were in play:</h2>
+    <div class="a mh rot" style="left:145px;top:100px;width:814px;height:814px" aria-hidden="true">
+      <div style="transform:rotate(97.99deg)"><div class="ell"><span class="fill" style="inset:-13.87%"><img src="assets/ellipse4.svg" alt=""></span></div></div>
+    </div>
+    <div class="a mh rot" style="left:632.17px;top:16.93px;width:980.669px;height:980.669px" aria-hidden="true">
+      <div style="transform:rotate(-150.85deg)"><div class="ell"><span class="fill" style="inset:-13.87%"><img src="assets/ellipse3.svg" alt=""></span></div></div>
+    </div>
+
+    <!-- crisp disc edges (Figma's glass look; the SVG export carries only the soft layer blur) -->
+    <div class="a mh disc pink" style="left:191.58px;top:146.58px" aria-hidden="true"></div>
+    <div class="a mh disc grey" style="left:762.09px;top:146.85px" aria-hidden="true"></div>
+    <div class="a mh disc blue" style="left:467.07px;top:590.08px" aria-hidden="true"></div>
+
+    <!-- Planner -->
+    <div class="a r arche planner" style="left:198px;top:346px;width:604px;height:180px">
+      <div class="a doodle" style="left:0;top:0;width:107px;height:181px" aria-hidden="true">
+        <i class="v" style="left:20.73px;top:19.52px;width:69.837px;height:46.386px"><span style="inset:-4.31% -2.86%"><img src="assets/v34.svg" alt=""></span></i>
+        <i class="v" style="left:17.94px;top:36.31px;width:70.955px;height:87.368px"><span style="inset:-2.29% -2.82% -2.26% -2.82%"><img src="assets/v2.svg" alt=""></span></i>
+        <i class="v" style="left:34.14px;top:63.69px;width:1.117px;height:11.166px"><span style="inset:-17.92% -178.99% -17.91% -178.99%"><img src="assets/v35.svg" alt=""></span></i>
+        <i class="v" style="left:73.81px;top:73.74px;width:1.676px;height:7.911px"><span style="inset:-25.28% -119.32% -25.28% -119.33%"><img src="assets/v36.svg" alt=""></span></i>
+        <i class="v" style="left:50.34px;top:96.64px;width:10.583px;height:11.851px"><span style="inset:-16.88% -18.9%"><img src="assets/v37.svg" alt=""></span></i>
+        <i class="v" style="left:15.77px;top:95.53px;width:11.669px;height:13.352px"><span style="inset:-14.98% -17.14%"><img src="assets/v38.svg" alt=""></span></i>
+        <i class="v" style="left:0;top:105.58px;width:35.209px;height:68.592px"><span style="inset:-2.92% -5.68%"><img src="assets/v7.svg" alt=""></span></i>
+        <i class="v" style="left:55.93px;top:86.59px;width:0;height:0"><span style="inset:-2px"><img src="assets/v8.svg" alt=""></span></i>
+        <i class="v" style="left:65.57px;top:122.34px;width:40.785px;height:57.546px"><span style="inset:-3.48% -4.9%"><img src="assets/v18.svg" alt=""></span></i>
+        <i class="v" style="left:30.37px;top:137.99px;width:10.615px;height:12.291px"><span style="inset:-16.27% -18.84%"><img src="assets/v19.svg" alt=""></span></i>
+        <i class="v" style="left:38.19px;top:118.99px;width:3.911px;height:12.85px"><span style="inset:-15.57% -51.15%"><img src="assets/v20.svg" alt=""></span></i>
+        <i class="v" style="left:34.84px;top:0;width:62.015px;height:59.212px"><span style="inset:-3.38% -3.23%"><img src="assets/v21.svg" alt=""></span></i>
+      </div>
+      <div class="arche-txt">
+        <h3 class="a r arche-h" style="left:142px;top:4px;width:462px">The Planner</h3>
+        <p class="a r arche-p" style="left:142px;top:96px;width:357px">Organises the plan, books tickets, and pays upfront.</p>
+      </div>
+    </div>
+
+    <!-- Canceller -->
+    <div class="a r arche canceller" style="left:1040px;top:361px;width:472px;height:199px">
+      <div class="a doodle" style="left:313px;top:0;width:123px;height:199px" aria-hidden="true">
+        <i class="v" style="left:25.48px;top:35.88px;width:96.63px;height:99.602px"><span style="inset:-2.01% -2.07%"><img src="assets/v22.svg" alt=""></span></i>
+        <i class="v" style="left:78.79px;top:71.32px;width:14.555px;height:29.887px"><span style="inset:-6.69% -13.74%"><img src="assets/v23.svg" alt=""></span></i>
+        <i class="v" style="left:55.46px;top:35.05px;width:19.386px;height:16.583px"><span style="inset:-12.06% -10.32%"><img src="assets/v24.svg" alt=""></span></i>
+        <i class="v" style="left:99.39px;top:43.76px;width:14.54px;height:10.597px"><span style="inset:-18.87% -13.76% -18.88% -13.76%"><img src="assets/v25.svg" alt=""></span></i>
+        <i class="v" style="left:55.77px;top:85.26px;width:30.761px;height:41.059px"><span style="inset:-4.87% -6.5%"><img src="assets/v26.svg" alt=""></span></i>
+        <i class="v" style="left:60.62px;top:64.96px;width:2.09px;height:3.008px"><span style="inset:-66.5% -95.71% -66.57% -95.72%"><img src="assets/v27.svg" alt=""></span></i>
+        <i class="v" style="left:104.96px;top:71.63px;width:3.197px;height:4.82px"><span style="inset:-41.5% -62.57% -41.49% -62.57%"><img src="assets/v28.svg" alt=""></span></i>
+        <i class="v" style="left:67.03px;top:102.22px;width:12.97px;height:16.435px"><span style="inset:-12.17% -15.42%"><img src="assets/v29.svg" alt=""></span></i>
+        <i class="v" style="left:21.24px;top:0;width:92.692px;height:28.008px"><span style="inset:-7.15% -2.16% -7.14% -2.16%"><img src="assets/v30.svg" alt=""></span></i>
+        <i class="v" style="left:0;top:127.97px;width:53.844px;height:70.882px"><span style="inset:-2.82% -3.71%"><img src="assets/v31.svg" alt=""></span></i>
+      </div>
+      <div class="arche-txt">
+        <h3 class="a r arche-h" style="left:10px;top:4px;width:462px">The Canceller</h3>
+        <p class="a r arche-p" style="left:0;top:92px;width:351px">Intends to pay but delays or forgets to pay.</p>
+      </div>
+    </div>
+
+    <!-- Avoider -->
+    <div class="a r arche avoider" style="left:596px;top:908px;width:462px;height:166px">
+      <div class="a doodle" style="left:341px;top:0;width:103px;height:166px" aria-hidden="true">
+        <i class="v" style="left:9.46px;top:26.17px;width:55.87px;height:81.687px"><span style="inset:-2.45% -3.58%"><img src="assets/v9.svg" alt=""></span></i>
+        <i class="v" style="left:23.43px;top:64.16px;width:11.174px;height:24.55px"><span style="inset:-8.15% -17.9%"><img src="assets/v10.svg" alt=""></span></i>
+        <i class="v" style="left:16.73px;top:50.75px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+        <i class="v" style="left:31.25px;top:49.63px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+        <i class="v" style="left:34.05px;top:97.68px;width:3.352px;height:0"><span style="inset:-2px -59.66%"><img src="assets/v13.svg" alt=""></span></i>
+        <i class="v" style="left:60.87px;top:39.61px;width:20.629px;height:28.461px"><span style="inset:-7.03% -9.69% -7.03% -9.7%"><img src="assets/v14.svg" alt=""></span></i>
+        <i class="v" style="left:33.98px;top:107.74px;width:9.006px;height:43.578px"><span style="inset:-4.59% -22.21% -4.59% -22.2%"><img src="assets/v15.svg" alt=""></span></i>
+        <i class="v" style="left:0;top:56.48px;width:13.935px;height:19.417px"><span style="inset:-10.3% -14.36% -10.3% -14.35%"><img src="assets/v16.svg" alt=""></span></i>
+        <i class="v" style="left:67.57px;top:107.18px;width:35.198px;height:58.663px"><span style="inset:-3.41% -5.68%"><img src="assets/v17.svg" alt=""></span></i>
+        <i class="v" style="left:15.78px;top:0;width:53.754px;height:32.796px"><span style="inset:-6.1% -3.72%"><img src="assets/v32.svg" alt=""></span></i>
+        <i class="v" style="left:0.58px;top:11.41px;width:71.213px;height:25.629px"><span style="inset:-7.8% -2.81%"><img src="assets/v33.svg" alt=""></span></i>
+      </div>
+      <div class="arche-txt">
+        <h3 class="a r arche-h" style="left:0;top:15px;width:462px">The Avoider</h3>
+        <p class="a r arche-p" style="left:0;top:83px;width:351px">Intends to pay but delays or forgets to pay.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 11 · Current app journey ===== -->
+  <section class="frame f-journey" data-toc="Current app" style="left:71px;top:9185px;width:1596px;height:1550px">
+    <h2 class="a r h36 light" style="left:79px;top:29px;width:782px">Up until this point i hadn’t dissected the current app journey so as to get unbiased ideas.</h2>
+    <div class="a r shots" style="left:79px;top:171px">
+      <figure><div class="shotbox" style="width:275px;height:626.781px"><img src="assets/app-1.png" alt="BookMyShow seat selection"></div></figure>
+      <figure><div class="shotbox" style="width:274px;height:624px"><img src="assets/app-2.png" alt="BookMyShow booking summary"></div><figcaption style="left:270px;top:647px;width:319px">Affordance for seats that are being paid for and havent been booked yet</figcaption></figure>
+      <figure><div class="shotbox" style="width:273px;height:622.222px"><img src="assets/app-3.png" alt="BookMyShow payment options"></div></figure>
+      <figure><div class="shotbox" style="width:275px;height:627px"><img src="assets/app-4.png" alt="BookMyShow split payment"></div><figcaption style="left:855px;top:647px;width:275px">In app splitting - prepaying their own bill</figcaption></figure>
+      <figure><div class="shotbox" style="width:274px;height:624px"><img src="assets/app-5.png" alt="Paytm payment requests"></div><figcaption style="left:1138px;top:647px;width:305px">Paytm requests to each individual everybooks their own seat.</figcaption></figure>
+    </div>
+    <div class="a r imgbox" style="left:79px;top:937px;width:1415px;height:572px;--ar:1415/572"><img class="cover" src="assets/journey-board.png" alt="Journey mapping board"></div>
+  </section>
+
+  <!-- ===== Blank gap: the dark-mode circle blows up here (darkmode.js) ===== -->
+  <div class="dark-gap" aria-hidden="true" style="left:0;top:10735px;width:1728px;height:932px"></div>
+
+  <!-- ===== 12 · Building user journeys ===== -->
+  <section class="frame f-build" data-toc="WhatsApp journey" style="left:57px;top:11667px;width:1610px;height:985px">
+    <h2 class="a r h24" style="left:93px;top:37px;width:782px">Building user journeys</h2>
+    <div class="ov personas">
+      <div class="a r persona planner" style="left:518px;top:112px;width:314px;height:151px">
+        <div class="a doodle" style="left:0;top:0;width:72px;height:122px" aria-hidden="true">
+          <i class="v" style="left:14px;top:13px;width:47px;height:32px"><span style="inset:-6.25% -4.26%"><img src="assets/v39.svg" alt=""></span></i>
+          <i class="v" style="left:12px;top:25px;width:48px;height:59px"><span style="inset:-3.39% -4.17% -3.35% -4.17%"><img src="assets/v40.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:43px;width:1px;height:8px"><span style="inset:-25% -200%"><img src="assets/v41.svg" alt=""></span></i>
+          <i class="v" style="left:50px;top:50px;width:1px;height:5px"><span style="inset:-40% -200%"><img src="assets/v42.svg" alt=""></span></i>
+          <i class="v" style="left:34px;top:66px;width:7px;height:8px"><span style="inset:-25% -28.57%"><img src="assets/v43.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:65px;width:8px;height:9px"><span style="inset:-22.22% -25%"><img src="assets/v44.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:72px;width:24px;height:46px"><span style="inset:-4.35% -8.33%"><img src="assets/v45.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:59px;width:0;height:0"><span style="inset:-2px"><img src="assets/v8.svg" alt=""></span></i>
+          <i class="v" style="left:44px;top:83px;width:28px;height:39px"><span style="inset:-5.13% -7.14%"><img src="assets/v47.svg" alt=""></span></i>
+          <i class="v" style="left:21px;top:94px;width:7px;height:8px"><span style="inset:-25% -28.57%"><img src="assets/v48.svg" alt=""></span></i>
+          <i class="v" style="left:26px;top:81px;width:3px;height:8px"><span style="inset:-25% -66.68% -25.01% -66.68%"><img src="assets/v49.svg" alt=""></span></i>
+          <i class="v" style="left:24px;top:0;width:42px;height:40px"><span style="inset:-5% -4.76%"><img src="assets/v50.svg" alt=""></span></i>
+        </div>
+        <p class="a r persona-l" style="left:0;top:127px;width:314px">The Planner</p>
+      </div>
+      <div class="a r persona canceller" style="left:945px;top:116px;width:313px;height:147px">
+        <div class="a doodle" style="left:60px;top:0;width:83px;height:135px" aria-hidden="true">
+          <i class="v" style="left:17px;top:25px;width:66px;height:67px"><span style="inset:-2.99% -3.03% -2.98% -3.03%"><img src="assets/v51.svg" alt=""></span></i>
+          <i class="v" style="left:54px;top:49px;width:9px;height:20px"><span style="inset:-10% -22.22%"><img src="assets/v52.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:24px;width:13px;height:11px"><span style="inset:-18.18% -15.38% -18.18% -15.39%"><img src="assets/v53.svg" alt=""></span></i>
+          <i class="v" style="left:68px;top:30px;width:9px;height:7px"><span style="inset:-28.57% -22.22% -28.58% -22.23%"><img src="assets/v54.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:58px;width:21px;height:28px"><span style="inset:-7.14% -9.52%"><img src="assets/v55.svg" alt=""></span></i>
+          <i class="v" style="left:41px;top:44px;width:2px;height:2px"><span style="inset:-100.01% -100% -99.99% -100.01%"><img src="assets/v56.svg" alt=""></span></i>
+          <i class="v" style="left:71px;top:49px;width:3px;height:3px"><span style="inset:-66.68% -66.66% -66.66% -66.68%"><img src="assets/v57.svg" alt=""></span></i>
+          <i class="v" style="left:46px;top:69px;width:8px;height:12px"><span style="inset:-16.67% -25.01% -16.67% -25%"><img src="assets/v58.svg" alt=""></span></i>
+          <i class="v" style="left:15px;top:0;width:62px;height:19px"><span style="inset:-10.55% -3.23% -10.53% -3.23%"><img src="assets/v59.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:87px;width:37px;height:48px"><span style="inset:-4.17% -5.4%"><img src="assets/v60.svg" alt=""></span></i>
+        </div>
+        <p class="a r persona-l" style="left:0;top:123px;width:313px">The Canceller</p>
+      </div>
+      <div class="a r persona avoider" style="left:958px;top:313px;width:304px;height:165px">
+        <div class="a doodle" style="left:50px;top:0;width:68px;height:109px" aria-hidden="true">
+          <i class="v" style="left:7px;top:17px;width:36px;height:54px"><span style="inset:-3.7% -5.56%"><img src="assets/v61.svg" alt=""></span></i>
+          <i class="v" style="left:16px;top:42px;width:7px;height:16px"><span style="inset:-12.5% -28.57%"><img src="assets/v62.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:33px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+          <i class="v" style="left:21px;top:33px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:64px;width:2px;height:0"><span style="inset:-2px -100%"><img src="assets/v65.svg" alt=""></span></i>
+          <i class="v" style="left:40px;top:26px;width:14px;height:19px"><span style="inset:-10.53% -14.29%"><img src="assets/v66.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:71px;width:6px;height:28px"><span style="inset:-7.14% -33.33%"><img src="assets/v67.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:37px;width:10px;height:13px"><span style="inset:-15.38% -20% -15.39% -20%"><img src="assets/v68.svg" alt=""></span></i>
+          <i class="v" style="left:45px;top:70px;width:23px;height:39px"><span style="inset:-5.13% -8.7%"><img src="assets/v69.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:0;width:35px;height:22px"><span style="inset:-9.09% -5.71% -9.09% -5.72%"><img src="assets/v70.svg" alt=""></span></i>
+          <i class="v" style="left:1px;top:7px;width:47px;height:17px"><span style="inset:-11.77% -4.26% -11.76% -4.26%"><img src="assets/v71.svg" alt=""></span></i>
+        </div>
+        <p class="a r persona-l" style="left:0;top:118px;width:304px">The Avoider</p>
+      </div>
+    </div>
+    <!-- User journey 01: Prototype 3 (WhatsApp link). Screens rendered by journeys/*.js -->
+    <div class="ov journey" data-journey="proto3">
+      <div class="a r j-intro" style="left:520px;top:500px;width:568px">
+        <h3 class="j-name">Taking the conversation to a familiar space</h3>
+      </div>
+      <div class="a r j-step" style="left:520px;top:612px;width:568px" aria-live="polite">
+        <p class="j-meta"><span class="j-count">Step 1</span><span class="j-tag" hidden></span></p>
+        <p class="j-title"></p>
+        <p class="j-line"><span class="j-who host">← Host</span><span class="j-host-txt"></span></p>
+        <p class="j-line"><span class="j-who friend">Friend →</span><span class="j-friend-txt"></span></p>
+      </div>
+
+      <div class="a r phone j-slot host" data-fit style="left:93px;top:112px;width:402px;height:765px"><div data-phone="host"></div></div>
+      <div class="a r phone j-slot friend" data-fit style="left:1113px;top:112px;width:402px;height:765px"><div data-phone="friend"></div></div>
+
+      <div class="a r j-controls" style="left:520px;top:834px;width:568px">
+        <button type="button" class="j-btn j-prev" aria-label="Previous step">← Previous</button>
+        <div class="j-dots" role="tablist" aria-label="Journey steps"></div>
+        <button type="button" class="j-btn j-next primary" aria-label="Next step">Next →</button>
+      </div>
+
+      <div class="a r j-chips" style="left:93px;top:912px;width:1422px" aria-label="Scenarios"></div>
+    </div>
+  </section>
+
+  <!-- ===== 12b · Why WhatsApp is risky (Figma Frame 23) ===== -->
+  <section class="frame f-risk" style="left:124px;top:12798px;width:1499px;height:802px">
+    <p class="a r risk-p" style="left:746px;top:145px;width:1008px">from the study we know that some users even go as far as to <span class="red">avoid opening texts to not pay</span> , and <span class="red">whasapp nudges have to go 2-3 times </span>. the core of this idea is being held in whatsapp which means there’s<u> high faliure chances</u></p>
+    <div class="a r risk-diagram" data-fit style="left:200px;top:430px;width:1140px;height:240px" aria-hidden="true">
+      <div class="a doodle" style="left:8px;top:43.84px;width:72px;height:122px" aria-hidden="true">
+          <i class="v" style="left:14px;top:13px;width:47px;height:32px"><span style="inset:-6.25% -4.26%"><img src="assets/v39.svg" alt=""></span></i>
+          <i class="v" style="left:12px;top:25px;width:48px;height:59px"><span style="inset:-3.39% -4.17% -3.35% -4.17%"><img src="assets/v40.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:43px;width:1px;height:8px"><span style="inset:-25% -200%"><img src="assets/v41.svg" alt=""></span></i>
+          <i class="v" style="left:50px;top:50px;width:1px;height:5px"><span style="inset:-40% -200%"><img src="assets/v42.svg" alt=""></span></i>
+          <i class="v" style="left:34px;top:66px;width:7px;height:8px"><span style="inset:-25% -28.57%"><img src="assets/v43.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:65px;width:8px;height:9px"><span style="inset:-22.22% -25%"><img src="assets/v44.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:72px;width:24px;height:46px"><span style="inset:-4.35% -8.33%"><img src="assets/v45.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:59px;width:0;height:0"><span style="inset:-2px"><img src="assets/v8.svg" alt=""></span></i>
+          <i class="v" style="left:44px;top:83px;width:28px;height:39px"><span style="inset:-5.13% -7.14%"><img src="assets/v47.svg" alt=""></span></i>
+          <i class="v" style="left:21px;top:94px;width:7px;height:8px"><span style="inset:-25% -28.57%"><img src="assets/v48.svg" alt=""></span></i>
+          <i class="v" style="left:26px;top:81px;width:3px;height:8px"><span style="inset:-25% -66.68% -25.01% -66.68%"><img src="assets/v49.svg" alt=""></span></i>
+          <i class="v" style="left:24px;top:0;width:42px;height:40px"><span style="inset:-5% -4.76%"><img src="assets/v50.svg" alt=""></span></i>
+        </div>
+      <p class="a risk-l planner" style="left:8px;top:170.84px">The Planner</p>
+      <div class="a" style="left:206px;top:40px;width:664px;height:52px"><span class="fill" style="inset:-3.85% -0.3% -19.71% -0.3%"><img src="assets/vector72.svg" alt="" data-arrow="664,50"></span></div>
+      <div class="a imgbox" style="left:116px;top:48.84px;width:90px;height:90px"><img class="cover" src="assets/whatsapp.png" alt=""></div>
+      <div class="a doodle" style="left:877px;top:54.84px;width:83px;height:135px" aria-hidden="true">
+          <i class="v" style="left:17px;top:25px;width:66px;height:67px"><span style="inset:-2.99% -3.03% -2.98% -3.03%"><img src="assets/v51.svg" alt=""></span></i>
+          <i class="v" style="left:54px;top:49px;width:9px;height:20px"><span style="inset:-10% -22.22%"><img src="assets/v52.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:24px;width:13px;height:11px"><span style="inset:-18.18% -15.38% -18.18% -15.39%"><img src="assets/v53.svg" alt=""></span></i>
+          <i class="v" style="left:68px;top:30px;width:9px;height:7px"><span style="inset:-28.57% -22.22% -28.58% -22.23%"><img src="assets/v54.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:58px;width:21px;height:28px"><span style="inset:-7.14% -9.52%"><img src="assets/v55.svg" alt=""></span></i>
+          <i class="v" style="left:41px;top:44px;width:2px;height:2px"><span style="inset:-100.01% -100% -99.99% -100.01%"><img src="assets/v56.svg" alt=""></span></i>
+          <i class="v" style="left:71px;top:49px;width:3px;height:3px"><span style="inset:-66.68% -66.66% -66.66% -66.68%"><img src="assets/v57.svg" alt=""></span></i>
+          <i class="v" style="left:46px;top:69px;width:8px;height:12px"><span style="inset:-16.67% -25.01% -16.67% -25%"><img src="assets/v58.svg" alt=""></span></i>
+          <i class="v" style="left:15px;top:0;width:62px;height:19px"><span style="inset:-10.55% -3.23% -10.53% -3.23%"><img src="assets/v59.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:87px;width:37px;height:48px"><span style="inset:-4.17% -5.4%"><img src="assets/v60.svg" alt=""></span></i>
+        </div>
+      <p class="a risk-l canceller" style="left:817px;top:177.84px">The Canceller</p>
+      <div class="a doodle" style="left:1045px;top:61.84px;width:68px;height:109px" aria-hidden="true">
+          <i class="v" style="left:7px;top:17px;width:36px;height:54px"><span style="inset:-3.7% -5.56%"><img src="assets/v61.svg" alt=""></span></i>
+          <i class="v" style="left:16px;top:42px;width:7px;height:16px"><span style="inset:-12.5% -28.57%"><img src="assets/v62.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:33px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+          <i class="v" style="left:21px;top:33px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:64px;width:2px;height:0"><span style="inset:-2px -100%"><img src="assets/v65.svg" alt=""></span></i>
+          <i class="v" style="left:40px;top:26px;width:14px;height:19px"><span style="inset:-10.53% -14.29%"><img src="assets/v66.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:71px;width:6px;height:28px"><span style="inset:-7.14% -33.33%"><img src="assets/v67.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:37px;width:10px;height:13px"><span style="inset:-15.38% -20% -15.39% -20%"><img src="assets/v68.svg" alt=""></span></i>
+          <i class="v" style="left:45px;top:70px;width:23px;height:39px"><span style="inset:-5.13% -8.7%"><img src="assets/v69.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:0;width:35px;height:22px"><span style="inset:-9.09% -5.71% -9.09% -5.72%"><img src="assets/v70.svg" alt=""></span></i>
+          <i class="v" style="left:1px;top:7px;width:47px;height:17px"><span style="inset:-11.77% -4.26% -11.76% -4.26%"><img src="assets/v71.svg" alt=""></span></i>
+        </div>
+      <p class="a risk-l avoider" style="left:995px;top:179.84px">The Avoider</p>
+      <div class="a" style="left:546px;top:6px;width:60.5px;height:70.5px"><span class="fill" style="inset:0.41% -0.66% 0.49% -1.09%"><img src="assets/vector73.svg" alt=""></span></div>
+    </div>
+  </section>
+  <!-- ===== 13 · Shifting gears: Prototype 1 (in-app, no WhatsApp) ===== -->
+  <section class="frame f-shift" data-toc="In-app journey" style="left:57px;top:13660px;width:1610px;height:1150px">
+    <h2 class="a r h36" style="left:93px;top:20px;width:1100px">Shifting gears: removing WhatsApp from the journey</h2>
+    <p class="a r t20" style="left:93px;top:84px;width:760px">What if the whole split stayed inside BookMyShow? Prototype 1 puts it on the checkout page itself, with friends added in-app and amounts the host can edit.</p>
+    <div class="ov personas">
+      <div class="a r persona planner" style="left:518px;top:200px;width:314px;height:151px">
+        <div class="a doodle" style="left:0;top:0;width:72px;height:122px" aria-hidden="true">
+          <i class="v" style="left:14px;top:13px;width:47px;height:32px"><span style="inset:-6.25% -4.26%"><img src="assets/v39.svg" alt=""></span></i>
+          <i class="v" style="left:12px;top:25px;width:48px;height:59px"><span style="inset:-3.39% -4.17% -3.35% -4.17%"><img src="assets/v40.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:43px;width:1px;height:8px"><span style="inset:-25% -200%"><img src="assets/v41.svg" alt=""></span></i>
+          <i class="v" style="left:50px;top:50px;width:1px;height:5px"><span style="inset:-40% -200%"><img src="assets/v42.svg" alt=""></span></i>
+          <i class="v" style="left:34px;top:66px;width:7px;height:8px"><span style="inset:-25% -28.57%"><img src="assets/v43.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:65px;width:8px;height:9px"><span style="inset:-22.22% -25%"><img src="assets/v44.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:72px;width:24px;height:46px"><span style="inset:-4.35% -8.33%"><img src="assets/v45.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:59px;width:0;height:0"><span style="inset:-2px"><img src="assets/v8.svg" alt=""></span></i>
+          <i class="v" style="left:44px;top:83px;width:28px;height:39px"><span style="inset:-5.13% -7.14%"><img src="assets/v47.svg" alt=""></span></i>
+          <i class="v" style="left:21px;top:94px;width:7px;height:8px"><span style="inset:-25% -28.57%"><img src="assets/v48.svg" alt=""></span></i>
+          <i class="v" style="left:26px;top:81px;width:3px;height:8px"><span style="inset:-25% -66.68% -25.01% -66.68%"><img src="assets/v49.svg" alt=""></span></i>
+          <i class="v" style="left:24px;top:0;width:42px;height:40px"><span style="inset:-5% -4.76%"><img src="assets/v50.svg" alt=""></span></i>
+        </div>
+        <p class="a r persona-l" style="left:0;top:127px;width:314px">The Planner</p>
+      </div>
+      <div class="a r persona canceller" style="left:945px;top:204px;width:313px;height:147px">
+        <div class="a doodle" style="left:60px;top:0;width:83px;height:135px" aria-hidden="true">
+          <i class="v" style="left:17px;top:25px;width:66px;height:67px"><span style="inset:-2.99% -3.03% -2.98% -3.03%"><img src="assets/v51.svg" alt=""></span></i>
+          <i class="v" style="left:54px;top:49px;width:9px;height:20px"><span style="inset:-10% -22.22%"><img src="assets/v52.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:24px;width:13px;height:11px"><span style="inset:-18.18% -15.38% -18.18% -15.39%"><img src="assets/v53.svg" alt=""></span></i>
+          <i class="v" style="left:68px;top:30px;width:9px;height:7px"><span style="inset:-28.57% -22.22% -28.58% -22.23%"><img src="assets/v54.svg" alt=""></span></i>
+          <i class="v" style="left:38px;top:58px;width:21px;height:28px"><span style="inset:-7.14% -9.52%"><img src="assets/v55.svg" alt=""></span></i>
+          <i class="v" style="left:41px;top:44px;width:2px;height:2px"><span style="inset:-100.01% -100% -99.99% -100.01%"><img src="assets/v56.svg" alt=""></span></i>
+          <i class="v" style="left:71px;top:49px;width:3px;height:3px"><span style="inset:-66.68% -66.66% -66.66% -66.68%"><img src="assets/v57.svg" alt=""></span></i>
+          <i class="v" style="left:46px;top:69px;width:8px;height:12px"><span style="inset:-16.67% -25.01% -16.67% -25%"><img src="assets/v58.svg" alt=""></span></i>
+          <i class="v" style="left:15px;top:0;width:62px;height:19px"><span style="inset:-10.55% -3.23% -10.53% -3.23%"><img src="assets/v59.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:87px;width:37px;height:48px"><span style="inset:-4.17% -5.4%"><img src="assets/v60.svg" alt=""></span></i>
+        </div>
+        <p class="a r persona-l" style="left:0;top:123px;width:313px">The Canceller</p>
+      </div>
+      <div class="a r persona avoider" style="left:958px;top:401px;width:304px;height:165px">
+        <div class="a doodle" style="left:50px;top:0;width:68px;height:109px" aria-hidden="true">
+          <i class="v" style="left:7px;top:17px;width:36px;height:54px"><span style="inset:-3.7% -5.56%"><img src="assets/v61.svg" alt=""></span></i>
+          <i class="v" style="left:16px;top:42px;width:7px;height:16px"><span style="inset:-12.5% -28.57%"><img src="assets/v62.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:33px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+          <i class="v" style="left:21px;top:33px;width:0;height:0"><span style="inset:-2px"><img src="assets/v11.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:64px;width:2px;height:0"><span style="inset:-2px -100%"><img src="assets/v65.svg" alt=""></span></i>
+          <i class="v" style="left:40px;top:26px;width:14px;height:19px"><span style="inset:-10.53% -14.29%"><img src="assets/v66.svg" alt=""></span></i>
+          <i class="v" style="left:23px;top:71px;width:6px;height:28px"><span style="inset:-7.14% -33.33%"><img src="assets/v67.svg" alt=""></span></i>
+          <i class="v" style="left:0;top:37px;width:10px;height:13px"><span style="inset:-15.38% -20% -15.39% -20%"><img src="assets/v68.svg" alt=""></span></i>
+          <i class="v" style="left:45px;top:70px;width:23px;height:39px"><span style="inset:-5.13% -8.7%"><img src="assets/v69.svg" alt=""></span></i>
+          <i class="v" style="left:11px;top:0;width:35px;height:22px"><span style="inset:-9.09% -5.71% -9.09% -5.72%"><img src="assets/v70.svg" alt=""></span></i>
+          <i class="v" style="left:1px;top:7px;width:47px;height:17px"><span style="inset:-11.77% -4.26% -11.76% -4.26%"><img src="assets/v71.svg" alt=""></span></i>
+        </div>
+        <p class="a r persona-l" style="left:0;top:118px;width:304px">The Avoider</p>
+      </div>
+    </div>
+    <!-- User journey 02: Prototype 1 (inline checkout). Screens rendered by journeys/proto1-*.js -->
+    <div class="ov journey" data-journey="proto1">
+      <div class="a r j-intro" style="left:520px;top:588px;width:568px">
+        <h3 class="j-name">Keeping the whole split inside BookMyShow</h3>
+      </div>
+      <div class="a r j-step" style="left:520px;top:700px;width:568px" aria-live="polite">
+        <p class="j-meta"><span class="j-count">Step 1</span><span class="j-tag" hidden></span></p>
+        <p class="j-title"></p>
+        <p class="j-line"><span class="j-who host">← Host</span><span class="j-host-txt"></span></p>
+        <p class="j-line"><span class="j-who friend">Friend →</span><span class="j-friend-txt"></span></p>
+      </div>
+
+      <div class="a r phone j-slot host" data-fit style="left:93px;top:200px;width:402px;height:765px"><div data-phone="host"></div></div>
+      <div class="a r phone j-slot friend" data-fit style="left:1113px;top:200px;width:402px;height:765px"><div data-phone="friend"></div></div>
+
+      <div class="a r j-controls" style="left:520px;top:922px;width:568px">
+        <button type="button" class="j-btn j-prev" aria-label="Previous step">← Previous</button>
+        <div class="j-dots" role="tablist" aria-label="Journey steps"></div>
+        <button type="button" class="j-btn j-next primary" aria-label="Next step">Next →</button>
+      </div>
+
+      <div class="a r j-chips" style="left:93px;top:1000px;width:1422px" aria-label="Scenarios"></div>
+    </div>
+  </section>
+  <!-- ===== 14 · The trade-off (Figma Group 1, node 27:489) ===== -->
+  <section class="frame f-end" data-toc="Trade-off" style="left:384px;top:14890px;width:1005px;height:382px">
+    <div class="a r seesaw" data-fit style="left:269px;top:0;width:448px;height:232px" aria-hidden="true">
+      <svg class="ss-stand" width="448" height="232" viewBox="0 0 448 232"><path d="M230.5 134 L303 231.5 H169.5 Z" fill="#D9D9D9"/></svg>
+      <div class="ss-tilt">
+        <svg class="ss-plank" width="448" height="232" viewBox="0 0 448 232"><path d="M13 181 V161.5 L448 88 V107.5 Z" fill="#D9D9D9"/></svg>
+        <img class="ss-pig" src="assets/savings.svg" alt="" style="left:10.5px;top:61.25px;width:124px;height:124px">
+        <img class="ss-droid" src="assets/android.svg" alt="" style="left:363.53px;top:0;width:84px;height:84px">
+      </div>
+    </div>
+    <p class="a r end-p" style="left:502.5px;top:274px;width:1005px">One of the biggest issues in these is that ; do i as a designer for bookmyshow want more app users or successful purchases - in these solutions im not forcing the user to learn anything new ; <span class="red">my focus is on generating revenue for the company </span></p>
+  </section>
+</main>
+<script src="script.js"></script>
+<script src="journeys/proto3-screens.js"></script>
+<script src="journeys/journey.js"></script>
+<script src="journeys/proto3-journey.js"></script>
+<script src="journeys/proto1-screens.js"></script>
+<script src="journeys/proto1-journey.js"></script>
+<script src="motion.js"></script>
+<script src="nav.js"></script>
+<script src="darkmode.js"></script>
+</body>
+</html>
