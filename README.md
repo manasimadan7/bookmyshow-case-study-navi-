@@ -2,7 +2,7 @@
 
 A case study on **splitting a BookMyShow booking with friends**: why one person always ends up paying upfront and chasing everyone, what the research said, and two interactive prototypes that tackle it.
 
-**Live site:** https://manasimadan7.github.io/bookmyshow-case-study/
+**Live site:** https://manasimadan7.github.io/bookmyshow-case-study-navi-/
 
 - Figma file: https://www.figma.com/design/VgETV6KyHXm8IKjcBon5Vu/navi-des-task
 - FigJam board: https://www.figma.com/board/V90Hs1obiRLPqSWpvGNdHS/navi-destask
