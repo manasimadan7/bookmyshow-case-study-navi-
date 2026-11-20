@@ -512,8 +512,85 @@ but it is not a reliable <u>task system.</u></p><span>Manasi madan</span></div>
       <div class="a r j-chips" style="left:93px;top:1000px;width:1422px" aria-label="Scenarios"></div>
     </div>
   </section>
+  <!-- ===== 15 · User testing (Figma Frame 26, node 28:491) ===== -->
+  <section class="frame f-test" data-toc="User testing" style="left:0;top:14870px;width:1728px;height:2636px">
+    <h2 class="a r test-h" style="left:150px;top:100px;width:782px">I get it ,<br>but does my <u>user base</u> get it too ?</h2>
+    <div class="a r imgbox" style="left:150px;top:276px;width:1031px;height:469px;--ar:1031/469"><img class="cover" src="assets/usertest-call.png" alt="Remote talk-aloud session: the participant shares the prototype on a video call"></div>
+    <div class="a mh imgbox" style="left:161px;top:355px;width:584px;height:312px"><img style="position:absolute;left:-15.94%;top:-6.73%;width:115.85%;height:109.94%;max-width:none" src="assets/usertest-screen.png" alt=""></div>
+    <div class="ov test-notes">
+      <p class="a r test-p24" style="left:1223px;top:582px">Conducting talk out loud </p>
+      <p class="a r test-p20" style="left:1223px;top:655px;width:465px">I told the participant that the are the host of a group outing  , , how would they iinteract with the app knowing a split feature exists</p>
+      <div class="a r test-p20" style="left:1214px;top:953px;width:474px">
+        <ol class="test-ol">
+          <li>Participant felt scared that no one will pay before <b>timer</b> ends - caused <b>anxiety . </b></li>
+          <li>didnt fully grasp the concept of <b>replacing members </b>or how to do it. </li>
+          <li>was able to understand the process till splitting </li>
+        </ol>
+        <p class="test-after">He felt that a lot of a<b>ffordances were not there in the whastapp journey </b>, such as cancelling , replacing , paying for someone else , visibility.</p>
+      </div>
+    </div>
+    <!-- What the talk-aloud session showed: observations from one session, shown as states, not scores -->
+    <div class="ov test-viz" role="group" aria-label="What the talk-aloud session showed">
+      <figure class="a r viz-tile" style="left:191px;bottom:1346px;width:270px">
+        <figcaption class="viz-title">Understanding of steps</figcaption>
+        <ol class="viz-flow" aria-label="Steps of the split flow">
+          <li class="ok" title="Pick seats: understood"><span class="viz-node" aria-hidden="true">✓</span><span class="viz-name">Pick seats</span><span class="viz-state">Understood</span></li>
+          <li class="ok" title="Split the bill: understood"><span class="viz-node" aria-hidden="true">✓</span><span class="viz-name">Split the bill</span><span class="viz-state">Understood</span></li>
+          <li class="bad" title="Replace members: unclear to the participant"><span class="viz-node" aria-hidden="true">✕</span><span class="viz-name">Replace members</span><span class="viz-state">Unclear</span></li>
+        </ol>
+        <p class="viz-sum"><b>2 of 3</b> steps understood</p>
+      </figure>
+      <figure class="a r viz-tile" style="left:542px;bottom:1346px;width:270px">
+        <figcaption class="viz-title">Affordances for cancelling</figcaption>
+        <p class="viz-kicker">In the WhatsApp journey</p>
+        <ul class="viz-list">
+          <li class="bad" title="Cancelling: missing"><span class="viz-node" aria-hidden="true">✕</span>Cancelling<span class="viz-state">Missing</span></li>
+          <li class="bad" title="Replacing: missing"><span class="viz-node" aria-hidden="true">✕</span>Replacing<span class="viz-state">Missing</span></li>
+          <li class="bad" title="Paying for someone else: missing"><span class="viz-node" aria-hidden="true">✕</span>Paying for someone else<span class="viz-state">Missing</span></li>
+          <li class="bad" title="Visibility: missing"><span class="viz-node" aria-hidden="true">✕</span>Visibility<span class="viz-state">Missing</span></li>
+        </ul>
+        <p class="viz-sum"><b>0 of 4</b> available</p>
+      </figure>
+      <figure class="a r viz-tile" style="left:851px;bottom:1346px;width:270px">
+        <figcaption class="viz-title">Sense of urgency</figcaption>
+        <p class="viz-kicker">As the hold timer ran down</p>
+        <div class="viz-meter" role="img" aria-label="Urgency level observed: anxious, the highest of calm, tense and anxious">
+          <span class="seg calm" title="Calm">Calm</span><span class="seg tense" title="Tense">Tense</span><span class="seg anx on" title="Anxious: observed">Anxious</span>
+          <span class="viz-pin" aria-hidden="true"></span>
+        </div>
+        <p class="viz-sum"><span class="viz-node bad" aria-hidden="true">!</span>Scared nobody would pay before the timer ended</p>
+      </figure>
+    </div>
+    <p class="a r viz-note" style="left:224px;top:1366px;width:840px">Observations from one talk-aloud session, shown as states rather than scores.</p>
+    <div class="ov test-labels">
+      <p class="a r test-label" style="left:224px;top:1313px">Understanding  of steps </p>
+      <p class="a r test-label" style="left:565px;top:1313px">Affordances for cancelling</p>
+      <p class="a r test-label" style="left:913px;top:1313px">sense of urgency </p>
+    </div>
+    <h2 class="a r test-h" style="left:150px;top:1544px;width:782px">Building affordances for<br>the <span class="red">issues noted</span></h2>
+
+    <!-- The fixes from testing, on the host's phone (screens: journeys/proto1-screens.js, steps: journeys/affordances-journey.js) -->
+    <div class="ov journey solo" data-journey="affordances">
+      <div class="a r j-chips test-chips" style="left:149px;top:1751px;width:880px" aria-label="Fixes"></div>
+      <div class="a r j-step" style="left:150px;top:1860px;width:820px" aria-live="polite">
+        <p class="j-meta"><span class="j-count">Step 1</span><span class="j-tag" hidden></span></p>
+        <p class="j-title"></p>
+        <p class="j-line"><span class="j-who host">Host →</span><span class="j-host-txt"></span></p>
+      </div>
+      <div class="a r j-controls" style="left:150px;top:2130px;width:620px">
+        <button type="button" class="j-btn j-prev" aria-label="Previous step">← Previous</button>
+        <div class="j-dots" role="tablist" aria-label="Steps"></div>
+        <button type="button" class="j-btn j-next primary" aria-label="Next step">Next →</button>
+      </div>
+      <div class="a r test-frame j-slot" data-fit style="left:1088px;top:1544px;width:563px;height:1008px"><div data-phone="host"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== Blank gap: dark mode zooms back out here, before the trade-off (darkmode.js) ===== -->
+  <div class="dark-gap dark-gap-out" aria-hidden="true" style="left:0;top:17506px;width:1728px;height:900px"></div>
+
   <!-- ===== 14 · The trade-off (Figma Group 1, node 27:489) ===== -->
-  <section class="frame f-end" data-toc="Trade-off" style="left:384px;top:14890px;width:1005px;height:382px">
+  <section class="frame f-end" data-toc="Trade-off" style="left:384px;top:18406px;width:1005px;height:382px">
     <div class="a r seesaw" data-fit style="left:269px;top:0;width:448px;height:232px" aria-hidden="true">
       <svg class="ss-stand" width="448" height="232" viewBox="0 0 448 232"><path d="M230.5 134 L303 231.5 H169.5 Z" fill="#D9D9D9"/></svg>
       <div class="ss-tilt">
@@ -531,6 +608,7 @@ but it is not a reliable <u>task system.</u></p><span>Manasi madan</span></div>
 <script src="journeys/proto3-journey.js"></script>
 <script src="journeys/proto1-screens.js"></script>
 <script src="journeys/proto1-journey.js"></script>
+<script src="journeys/affordances-journey.js"></script>
 <script src="motion.js"></script>
 <script src="nav.js"></script>
 <script src="darkmode.js"></script>

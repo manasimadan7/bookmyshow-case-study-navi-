@@ -141,11 +141,20 @@ header.top h1{font-size:22px;font-weight:700}
 .flash-warn{animation:flashWarn 1.4s ease-in-out infinite;border-radius:7px;padding-left:6px;padding-right:6px;margin:0 -6px}
 .flash-warn span:first-child{color:#b23b3b;font-weight:600}
 @keyframes flashWarn{0%,100%{background:transparent}50%{background:#fde2e2}}
+.drag-handle{cursor:grab;color:#ccc;display:inline-flex;flex:none}
+.drag-handle:active{cursor:grabbing}
+.prow[data-droppable]{border-radius:10px;transition:background .12s,outline .12s}
+.prow.drag-over{background:#fff4f6;outline:2px dashed var(--red);outline-offset:-2px}
+.prow.dragging{opacity:.4}
+.nested-row{display:flex;align-items:center;gap:8px;margin:0 0 0 38px;padding:5px 0 5px 10px;font-size:12px;color:#555;border-left:2px solid #f3d7dc}
+.nested-row .nm{font-weight:600;font-size:12.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hold{display:flex;align-items:center;gap:10px}
 .bar{height:8px;background:#ececec;border-radius:8px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--green);border-radius:8px;transition:width .5s}
 .toast{position:absolute;left:16px;right:16px;bottom:84px;background:#222;color:#fff;border-radius:10px;padding:11px 14px;font-size:13px;z-index:60;animation:up .25s}
 .dialog{position:absolute;left:24px;right:24px;top:50%;transform:translateY(-50%);background:#fff;border-radius:14px;padding:20px;z-index:30;text-align:center;animation:pop .25s}
+.dialog-close{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:#f2f2f2;color:#888;font-size:16px;display:grid;place-items:center;line-height:1}
+.dialog-close:hover{background:#e6e6e6;color:#555}
 .dialog h4{font-size:17px;margin:10px 0 6px}
 .dialog p{font-size:13.5px;color:#555;line-height:1.5;margin-bottom:16px}
 /* UPI sheet for host */
@@ -252,6 +261,7 @@ header.top h1{font-size:22px;font-weight:700}
 .demo button.pri{background:var(--red);color:#fff;border-color:var(--red)}
 .demo button.pri:hover{background:var(--red-d)}
 .note{font-size:12px;color:#7b8492;margin-top:8px}
+
 :host{display:block}
 .phone *{cursor:default!important}
 .phone input{pointer-events:none}

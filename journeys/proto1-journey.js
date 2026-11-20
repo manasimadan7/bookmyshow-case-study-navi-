@@ -131,16 +131,21 @@
         host: 'Vikram’s row turns red as Declined, with a Re-send button. Manasi knows right away instead of waiting on silence.',
         friend: 'Vikram sees that Manasi has been told he can’t pay right now. No awkward conversation needed.',
         setup: function () { sent(4 * MIN + 50 * SEC); paid('Kabir', 'Aditi'); follow('Vikram'); fr('Vikram').stage = 'declined'; } },
-      { title: 'Sneha covers Vikram',
-        host: 'Manasi taps + next to Sneha and adds Vikram. Declined friends can be covered, so his row folds into hers as 🎟 ×2.',
-        friend: 'Sneha’s request now shows the combined amount and says it includes Vikram’s share.',
-        friendName: 'Sneha',
-        setup: function () { sent(4 * MIN + 20 * SEC); paid('Kabir', 'Aditi'); fr('Vikram').stage = 'declined'; cover('Sneha', 'Vikram'); S().coverFor = fr('Sneha').id; follow('Sneha'); } },
+      { title: 'Re-sent, but he’s still stuck',
+        host: 'Manasi re-sends the request. Vikram still can’t pay, so she drags his name onto Sneha’s to hand his seat to her.',
+        friend: 'Vikram has the request again but can’t pay right now.',
+        scrollHost: 'end',
+        setup: function () { sent(4 * MIN + 30 * SEC); paid('Kabir', 'Aditi'); S().toast = 'Request re-sent'; follow('Vikram'); } },
+      { title: 'Vikram nests under Sneha',
+        host: 'His row drops in under Sneha’s (↳) with an × to undo it. Her amount now covers both seats.',
+        friend: 'Sneha’s request shows the combined amount and says it includes Vikram’s share.',
+        friendName: 'Sneha', scrollHost: 'end',
+        setup: function () { sent(4 * MIN + 20 * SEC); paid('Kabir', 'Aditi'); cover('Sneha', 'Vikram'); S().toast = 'Sneha is now paying for Vikram too'; follow('Sneha'); } },
       { title: 'One payment, two seats',
         host: 'Sneha is “Paying…” for both.',
         friend: 'She enters her PIN once for the combined amount.',
         friendName: 'Sneha',
-        setup: function () { sent(3 * MIN + 55 * SEC); paid('Kabir', 'Aditi'); fr('Vikram').stage = 'declined'; cover('Sneha', 'Vikram'); follow('Sneha'); var f = fr('Sneha'); f.stage = 'upi'; f.app = 'Paytm'; f.pin = '12'; } },
+        setup: function () { sent(3 * MIN + 55 * SEC); paid('Kabir', 'Aditi'); cover('Sneha', 'Vikram'); follow('Sneha'); var f = fr('Sneha'); f.stage = 'upi'; f.app = 'Paytm'; f.pin = '12'; } },
       { title: 'Both marked paid together',
         host: 'Booking confirmed. Sneha ×2 in the summary, not two separate payments.',
         friend: 'Vikram’s phone says Sneha paid for him.',
@@ -158,11 +163,21 @@
       { title: 'After sending: Vikram can’t make it',
         host: 'Requests are already out. The same × shows next to anyone who hasn’t paid yet.',
         friend: 'Sneha has a request for ₹670.80, a five-way split.',
+        scrollHost: 'end',
         setup: function () { sent(8 * MIN + 20 * SEC); follow('Sneha'); } },
-      { title: 'Removed, and the split adjusts',
-        host: 'Vikram is gone from the list and the shares are recalculated, without cancelling the booking.',
-        friend: 'Sneha’s request now shows a four-way split at the new amount.',
-        setup: function () { sent(8 * MIN); var s = S(); s.friends = s.friends.filter(function (f) { return f.name.indexOf('Vikram') !== 0; }); P.shares(); s.toast = 'Vikram removed'; follow('Sneha'); } }
+      { title: 'Replace this person, or release their seat?',
+        host: 'Tapping × no longer deletes the row silently. Manasi is asked to replace Vikram or release his seat, the step testers found confusing.',
+        friend: 'Nothing changes for Sneha while Manasi decides.',
+        setup: function () { sent(8 * MIN + 5 * SEC); var s = S(); s.dialog = 'removeChoice'; s.removeTarget = fr('Vikram').id; follow('Sneha'); } },
+      { title: 'Picking who takes the seat',
+        host: 'She searches her contacts and picks Priya. Same seat, same ₹670.80 share.',
+        friend: 'Still nothing for Sneha to do.',
+        setup: function () { sent(7 * MIN + 50 * SEC); var s = S(); s.dialog = 'replace'; s.removeTarget = fr('Vikram').id; s.query = ''; follow('Sneha'); } },
+      { title: 'Same seat, new person',
+        host: 'Vikram’s row becomes Priya’s, with a fresh request. Nobody else’s share changes and the booking keeps going.',
+        friend: 'Priya gets the request for the seat Vikram gave up.',
+        friendName: 'Priya', scrollHost: 'end',
+        setup: function () { sent(7 * MIN + 30 * SEC); var s = S(); var f = fr('Vikram'); f.name = 'Priya Menon'; f.phone = '98190 55678'; s.toast = 'Replaced with Priya'; follow('Priya'); } }
     ]
   };
 
@@ -200,41 +215,51 @@
         host: 'The ring is red. Only Manasi has paid.',
         friend: 'Sneha is still on the UPI PIN screen.',
         setup: function () { sent(9 * SEC); follow('Sneha'); var f = fr('Sneha'); f.stage = 'upi'; f.app = 'Paytm'; f.pin = '1'; } },
-      { title: 'Time ran out',
-        host: 'Seats go back on sale and Manasi’s share is refunded. The ₹25 hold fee isn’t refunded on an expired hold.',
-        friend: 'Sneha isn’t left on a dead PIN pad. She sees her seat was released.',
-        setup: function () { sent(SEC); follow('Sneha'); fr('Sneha').stage = 'upi'; P.endHold('expired'); } },
-      { title: 'A 3-hour cooldown',
-        host: '“Pick seats again” explains the 3-hour block on new holds, which stops people hoarding seats.',
-        friend: 'Nothing more for Sneha to do.',
-        setup: function () { sent(SEC); follow('Sneha'); fr('Sneha').stage = 'upi'; P.endHold('expired'); S().dialog = 'cooldown'; } }
+      { title: 'Time’s up: Manasi decides',
+        host: 'Instead of silently cancelling, Manasi gets a last chance: pay the rest to keep all seats, or release the unpaid ones.',
+        friend: 'Sneha isn’t left on a dead PIN pad. Her request has closed.',
+        setup: expired() },
+      { title: 'Paying to keep every seat',
+        host: 'She pays the unpaid shares on the same UPI sheet, so nobody in the group loses their seat.',
+        friend: 'Still closed for Sneha.',
+        setup: function () { expired()(); var s = S(); s.payMode = 'cover'; s.hostScreen = 'pay'; } },
+      { title: 'Every seat kept',
+        host: 'Booking confirmed for all five. The split summary shows who Manasi covered, so she knows who to settle up with.',
+        friend: 'Sneha is told Manasi covered her share.',
+        setup: function () { expired()(); var s = S(); s.coverAmt = P.remaining();
+          s.friends.forEach(function (f) { if (f.stage !== 'paid') f.stage = 'cancelled'; }); s.phase = 'confirmed'; s.hostScreen = 'confirmed'; } }
     ]
   };
+  function expired(paidList) {   // the hold ran out (Prototype 1 now asks the host what to do)
+    return function () { sent(SEC); if (paidList) paid.apply(null, paidList); follow(paidList ? 'Aditi' : 'Sneha'); if (!paidList) { var f = fr('Sneha'); f.stage = 'upi'; f.app = 'Paytm'; } P.holdExpire(); };
+  }
 
   var partial = {
     chip: 'only some people could pay?', tag: 'What if · only some of the group paid in time', friendName: 'Aditi',
     steps: [
-      { title: 'The hold ends with 3 of 5 paid',
-        host: '“Time ran out”, but Kabir and Aditi paid in time, so “See tickets for those who paid” appears.',
-        friend: 'For now, Aditi is told the booking didn’t go through and her refund is on its way.',
-        setup: function () { sent(SEC); paid('Kabir', 'Aditi'); follow('Aditi'); P.endHold('expired'); } },
-      { title: 'Keep the tickets for those who paid',
-        host: 'The booking is partially confirmed for Manasi, Kabir and Aditi.',
+      { title: 'Time’s up with 3 of 5 paid',
+        host: 'Manasi sees exactly who is unpaid and what it costs to keep them: pay to keep all seats, or release the unpaid seats.',
+        friend: 'Aditi paid in time and is waiting to hear what happens.',
+        setup: expired(['Kabir', 'Aditi']) },
+      { title: 'Releasing the unpaid seats',
+        host: 'The booking is confirmed for Manasi, Kabir and Aditi.',
         friend: 'Aditi’s screen flips to “Your ticket is confirmed!”',
-        setup: function () { sent(SEC); paid('Kabir', 'Aditi'); follow('Aditi'); P.endHold('expired');
-          S().friends.forEach(function (f) { if (f.stage === 'paid') f.refund = false; }); S().hostScreen = 'partialConfirmed'; } },
+        setup: function () { expired(['Kabir', 'Aditi'])(); var s = S(); s.friends.forEach(function (f) { if (f.stage === 'paid') f.refund = false; }); s.phase = 'expired'; s.hostScreen = 'partialConfirmed'; } },
       { title: 'Unpaid friends are released, not charged',
         host: 'Sneha and Vikram flash as “Not confirmed”. Their seats go back on sale.',
         friend: 'Vikram sees his seat was released. Nothing was deducted from him.',
         friendName: 'Vikram', scrollHost: 'end',
-        setup: function () { sent(SEC); paid('Kabir', 'Aditi'); follow('Vikram'); P.endHold('expired');
-          S().friends.forEach(function (f) { if (f.stage === 'paid') f.refund = false; }); S().hostScreen = 'partialConfirmed'; } }
+        setup: function () { expired(['Kabir', 'Aditi'])(); var s = S(); s.friends.forEach(function (f) { if (f.stage === 'paid') f.refund = false; }); s.phase = 'expired'; s.hostScreen = 'partialConfirmed'; follow('Vikram'); } }
     ]
   };
 
   // ---------- tap hints: what gets tapped on this screen to reach the next step ----------
   function act(a, extra) { return '[data-act="' + a + '"]' + (extra || ''); }
   function byId(a, first) { return act(a, '[data-id="' + fr(first).id + '"]'); }
+  // drag-to-nest: press the grip on `who`'s row and drop it on `onto`'s row
+  function dragRow(who, onto) {
+    return ['host', '.prow[data-fid="' + fr(who).id + '"] .drag-handle', { dragTo: '.prow[data-fid="' + fr(onto).id + '"]' }];
+  }
   function taps(steps, list) { list.forEach(function (t, i) { if (t) steps[i].tap = t; }); }
   taps(ideal.steps, [
     [['host', act('goCheckout')]],
@@ -256,8 +281,9 @@
   ]);
   taps(notNow.steps, [
     [['friend', act('fDecline')]],
-    function () { return [['host', byId('openCover', 'Sneha')]]; },
-    [['host', '.dialog ' + act('closeCover')], ['friend', act('fPay')]],
+    function () { return [['host', byId('resend', 'Vikram')]]; },
+    function () { return [dragRow('Vikram', 'Sneha')]; },
+    [['friend', act('fPay')]],
     [['friend', act('pinKey', '[data-k="7"]')]]
   ]);
   taps(unknown.steps, [
@@ -267,10 +293,12 @@
   ]);
   taps(drop.steps, [
     function () { return [['host', byId('rm', 'Vikram')]]; },
-    function () { return [['host', byId('rmWait', 'Vikram')]]; }
+    function () { return [['host', byId('askRemove', 'Vikram')]]; },
+    [['host', act('startReplace')]],
+    [['host', act('replaceContact', '[data-id="c5"]')]]
   ]);
-  taps(timeout.steps, [null, [['host', act('tryCooldown')]]]);
-  taps(partial.steps, [[['host', act('keepPartial')]]]);
+  taps(timeout.steps, [null, [['host', act('payKeepAll')]], [['host', act('hostPayGo')]]]);
+  taps(partial.steps, [[['host', act('releaseUnpaid')]]]);
 
   // ---------- phones ----------
   function mountPhone(slot, id) {

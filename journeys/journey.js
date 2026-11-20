@@ -16,9 +16,10 @@
 
     // scenario chips: first one is the ideal user journey, the rest are "What if…" branches
     if (el.chips) {
+      var whatIf = cfg.whatIf !== false;   // false: plain pills, no "What if…" label or main chip
       el.chips.innerHTML = scenarios.map(function (s, i) {
-        return (i === 1 ? '<span class="j-chips-label">What if…</span>' : '') +
-          '<button type="button" class="j-chip' + (i === 0 ? ' main' : '') + '" data-s="' + i + '" aria-pressed="false">' + s.chip + '</button>';
+        return (whatIf && i === 1 ? '<span class="j-chips-label">What if…</span>' : '') +
+          '<button type="button" class="j-chip' + (whatIf && i === 0 ? ' main' : '') + '" data-s="' + i + '" aria-pressed="false">' + s.chip + '</button>';
       }).join('');
       el.chips.addEventListener('click', function (e) {
         var b = e.target.closest('.j-chip'); if (b) { sc = +b.dataset.s; cur = 0; buildDots(); render(); }
@@ -40,6 +41,14 @@
       '@keyframes tapRing{0%,30%{transform:scale(.4);opacity:0}40%{opacity:1}100%{transform:scale(1.7);opacity:0}}' +
       '@keyframes tapDot{0%,25%{transform:scale(0)}35%{transform:scale(1)}70%,100%{transform:scale(0)}}' +
       '@keyframes tapFinger{0%{transform:translate(10px,14px)}30%{transform:translate(0,0) scale(.9)}45%{transform:translate(0,0) scale(1)}100%{transform:translate(10px,14px)}}' +
+      // drag variant: press on the handle, slide to the drop target (--dx/--dy), let go
+      '.tap-hint.drag .ring{display:none}' +
+      '.tap-hint.drag .dot,.tap-hint.drag svg{animation-duration:2.2s;animation-timing-function:ease-in-out}' +
+      '.tap-hint.drag .dot{animation-name:dragDot}.tap-hint.drag svg{animation-name:dragFinger}' +
+      '.tap-hint .trail{position:absolute;left:0;top:0;height:3px;width:var(--len);transform-origin:0 50%;transform:rotate(var(--ang));background:repeating-linear-gradient(90deg,rgba(232,53,77,.8) 0 6px,transparent 6px 11px);border-radius:2px;margin-top:-1.5px;animation:dragTrail 2.2s ease-in-out infinite}' +
+      '@keyframes dragFinger{0%{transform:translate(10px,14px);opacity:0}12%{transform:translate(0,0) scale(.9);opacity:1}62%{transform:translate(var(--dx),var(--dy)) scale(.9);opacity:1}75%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1);opacity:0}}' +
+      '@keyframes dragDot{0%,10%{transform:translate(0,0) scale(0)}16%{transform:translate(0,0) scale(1)}62%{transform:translate(var(--dx),var(--dy)) scale(1)}74%,100%{transform:translate(var(--dx),var(--dy)) scale(0)}}' +
+      '@keyframes dragTrail{0%,12%{opacity:0;clip-path:inset(0 100% 0 0)}62%{opacity:1;clip-path:inset(0 0 0 0)}85%,100%{opacity:0;clip-path:inset(0 0 0 0)}}' +
       '@media (prefers-reduced-motion:reduce){.tap-hint *{animation:none!important}}';
     var FINGER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" stroke="#1e1e1e" stroke-width="1.1" stroke-linejoin="round" d="M10 7.5c0-.83.67-1.5 1.5-1.5S13 6.67 13 7.5v6h1.76c.19 0 .37.04.54.11l4.54 2.26c.53.22.91.76.91 1.38 0 .06-.01.13-.02.2l-.75 5.27c-.11.73-.69 1.28-1.44 1.28h-6.79c-.41 0-.79-.17-1.06-.44l-4.94-4.94.79-.8c.2-.2.48-.33.79-.33.09 0 .16.02.24.03l3.43.72V7.5z"/></svg>';
     var tapTimer = null;
@@ -56,20 +65,34 @@
       if (!list || !list.length) return;
       // wait for the prototype's slide-in animations to settle before measuring
       tapTimer = setTimeout(function () {
+        // layout position inside the phone (ignores slide-in transforms, so it's right even mid-animation)
+        function pos(phone, el) {
+          if (!el || !el.offsetWidth) return null;
+          var x = el.offsetWidth / 2, y = el.offsetHeight / 2, n = el;
+          while (n && n !== phone) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+          if (n !== phone) return null;
+          for (var p = el.parentElement; p && p !== phone; p = p.parentElement) { x -= p.scrollLeft; y -= p.scrollTop; }
+          return { x: x, y: y };
+        }
         list.forEach(function (t) {
           var r = roots[t[0]]; if (!r) return;
-          var phone = r.querySelector('.phone'), el = r.querySelector(t[1]);
-          if (!phone || !el) return;
-          var pr = phone.getBoundingClientRect(), er = el.getBoundingClientRect();
-          if (!er.width || !pr.width) return;
-          var k = pr.width / phone.offsetWidth;                       // page zoom / fit-zoom factor
-          var x = (er.left + er.width / 2 - pr.left) / k - phone.clientLeft;
-          var y = (er.top + er.height / 2 - pr.top) / k - phone.clientTop;
+          var phone = r.querySelector('.phone'); if (!phone) return;
+          var at = pos(phone, r.querySelector(t[1])); if (!at) return;
+          var x = at.x, y = at.y;
+          var to = t[2] && t[2].dragTo ? pos(phone, r.querySelector(t[2].dragTo)) : null;
           if (y < 0 || y > phone.clientHeight || x < 0 || x > phone.clientWidth) return;   // scrolled out of view
           var hint = document.createElement('div');
-          hint.className = 'tap-hint';
+          hint.className = 'tap-hint' + (to ? ' drag' : '');
           hint.style.left = x + 'px'; hint.style.top = y + 'px';
-          hint.innerHTML = '<span class="ring"></span><span class="dot"></span>' + FINGER;
+          var trail = '';
+          if (to) {
+            var dx = to.x - x, dy = to.y - y;
+            hint.style.setProperty('--dx', dx + 'px'); hint.style.setProperty('--dy', dy + 'px');
+            hint.style.setProperty('--len', Math.hypot(dx, dy) + 'px');
+            hint.style.setProperty('--ang', Math.atan2(dy, dx) + 'rad');
+            trail = '<span class="trail"></span>';
+          }
+          hint.innerHTML = trail + '<span class="ring"></span><span class="dot"></span>' + FINGER;
           phone.appendChild(hint);
         });
       }, 450);
@@ -84,7 +107,7 @@
       el.count.textContent = 'Step ' + (cur + 1) + ' of ' + S.steps.length;
       el.title.textContent = st.title;
       el.host.textContent = st.host;
-      el.friend.textContent = st.friend;
+      if (el.friend) el.friend.textContent = st.friend || '';
       if (el.friendLabel) el.friendLabel.textContent = 'Friend (' + (st.friendName || S.friendName || 'Aditi') + ')';
       el.prev.disabled = cur === 0;
       el.next.disabled = cur === S.steps.length - 1;

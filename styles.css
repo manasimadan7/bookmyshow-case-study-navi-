@@ -49,7 +49,7 @@ img { display: block; }
 .stage {
   position: relative;
   width: 1728px;
-  height: 15410px; /* Figma frame is 11928; extended for Frame 23, "Shifting gears" and the trade-off section */
+  height: 18938px; /* Figma frame is 11928; extended for Frame 23, Shifting gears, user testing, the dark-mode gaps and the trade-off section */
   margin: 0 auto;
   z-index: 1;                           /* above the dark-mode reveal */
 }
@@ -156,6 +156,65 @@ body.is-dark .hero-btn { color: var(--ink-2); }
 .hero-btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
 .hero-btn.primary:hover { background: #c92a40; }
 .hero-btn:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+/* ---------- 15 · User testing (Frame 26, black) ---------- */
+.f-test { background: transparent; color: #fff; }   /* sits on the page's dark-mode grey, not pure black */
+.test-h { font-size: 48px; line-height: 1.5; letter-spacing: -0.528px; font-weight: 300; color: #fff; }
+.test-h u { text-decoration-thickness: from-font; text-underline-position: from-font; text-decoration-skip-ink: none; }
+.test-p24 { font-size: 24px; line-height: 1.5; letter-spacing: -0.264px; font-weight: 300; color: #fff; white-space: nowrap; }
+.test-p20 { font-size: 20px; line-height: 1.5; letter-spacing: -0.22px; font-weight: 300; color: #fff; white-space: pre-wrap; }
+.test-p20 b { font-weight: 700; }
+.test-ol { margin: 0; padding-left: 30px; white-space: normal; }
+.test-after { margin-top: 150px; white-space: normal; }
+.test-label { font-size: 20px; line-height: 1.5; letter-spacing: -0.22px; font-weight: 300; color: #fff; white-space: pre; }
+/* talk-aloud findings: status colours (good / warning / critical) always paired with an icon + word */
+.f-test { --good: #0ca30c; --warn: #fab219; --crit: #d03b3b; }
+.viz-tile { margin: 0; color: #fff; font-weight: 300; }
+.viz-title { display: none; font-size: 18px; font-weight: 400; margin-bottom: 10px; }   /* desktop uses the Figma labels below */
+.viz-kicker { font-size: 13px; line-height: 18px; color: rgba(255,255,255,0.6); margin-bottom: 10px; letter-spacing: .02em; }
+.viz-node {
+  flex: none; width: 22px; height: 22px; border-radius: 50%; display: inline-grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: #121216; line-height: 1;
+}
+.ok .viz-node, .viz-node.ok { background: var(--good); }
+.bad .viz-node, .viz-node.bad { background: var(--crit); color: #fff; }
+.viz-state { margin-left: auto; font-size: 13px; color: rgba(255,255,255,0.65); }
+.viz-flow { list-style: none; margin: 0; padding: 0; position: relative; }
+.viz-flow::before { content: ''; position: absolute; left: 10px; top: 14px; bottom: 14px; width: 2px; background: rgba(255,255,255,0.18); }
+.viz-flow li { position: relative; display: flex; align-items: center; gap: 12px; padding: 9px 0; font-size: 17px; }
+.viz-flow li.bad .viz-name { color: #fff; font-weight: 400; }
+.viz-list { list-style: none; margin: 0; padding: 0; }
+.viz-list li { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.viz-sum { margin-top: 14px; font-size: 15px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 8px; }
+.viz-sum b { font-weight: 500; color: #fff; }
+.viz-meter { position: relative; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-top: 30px; }
+.viz-meter .seg {
+  height: 34px; display: grid; place-items: center; font-size: 13px; color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.10);
+}
+.viz-meter .seg:first-child { border-radius: 4px 0 0 4px; }
+.viz-meter .seg:last-child { border-radius: 0 4px 4px 0; }
+.viz-meter .seg.on { background: var(--crit); color: #fff; font-weight: 500; }
+.viz-meter .seg.tense { background: rgba(250,178,25,0.22); }
+.viz-pin { position: absolute; top: -16px; left: calc(83.33% - 7px); width: 0; height: 0; border: 7px solid transparent; border-top: 9px solid #fff; }
+.viz-note { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.5); font-weight: 300; }
+.f-test .test-chips { justify-content: flex-start; gap: 0; }
+/* scoped under .f-test so dark mode's light chip text (body.is-dark .j-chip) can't wash these out */
+.f-test .test-chips .j-chip { height: 48px; padding: 0 16px; font-size: 16px; background: #c2e5ff; color: #1e1e1e; }
+/* Figma: pills at x 149 / 446 / 754, widths 279 / 279 / 202 */
+@media (min-width: 900px) {
+  .test-chips .j-chip:nth-child(1) { width: 279px; }
+  .test-chips .j-chip:nth-child(2) { width: 279px; margin-left: 18px; }
+  .test-chips .j-chip:nth-child(3) { width: 202px; margin-left: 29px; }
+}
+.f-test .test-chips .j-chip:hover { background: #aed9fb; }
+.f-test .test-chips .j-chip.on { background: var(--red); color: #fff; }
+.f-test .j-step { border-top-color: rgba(255,255,255,0.18); }
+.f-test .j-title, .f-test .j-line, .f-test .j-count { color: #fff; }
+.f-test .j-count { opacity: .7; }
+.f-test .j-controls { background: transparent; }
+.test-frame { border: 1px solid #fff; border-radius: 30px; }
+.test-frame > div { zoom: 1.3; }
 
 /* ---------- 14 · Trade-off seesaw ---------- */
 .seesaw svg, .seesaw img { position: absolute; display: block; }
@@ -447,6 +506,22 @@ body.is-dark .arrow-ink path { fill: #8a8a96; }
   .hero-logo.r { margin: 8px 0; }
   .hero-cta.r { flex-wrap: wrap; justify-content: flex-start; margin-top: 16px; gap: 10px; }
   .hero-btn { height: 48px; padding: 0 20px; font-size: 16px; }
+
+  /* 15 · user testing */
+  .f-test { padding-top: 56px; padding-bottom: 56px; }
+  .test-h { font-size: 28px; line-height: 1.35; }
+  .test-p24 { font-size: 20px; white-space: normal; }
+  .test-p20 { font-size: 16px; }
+  .test-after { margin-top: 20px; }
+  .test-labels { display: none !important; }                 /* each chart carries its own title on mobile */
+  .viz-title { display: block; }
+  .test-viz { gap: 28px !important; }
+  .viz-tile.r { width: 100% !important; }
+  .test-label { font-size: 15px; white-space: normal; opacity: .85; }
+  .test-chips.r { flex-wrap: nowrap; }
+  .f-test .test-chips .j-chip { height: 42px; font-size: 14px; padding: 0 16px; }
+  .f-test .j-controls.r { background: rgba(0,0,0,0.88); }
+  .test-frame.r { align-self: center; }
 
   /* 14 · trade-off */
   .f-end { align-items: center; }

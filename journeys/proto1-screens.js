@@ -1,5 +1,7 @@
-/* Screen renderers extracted verbatim from 'BookMyShow Split Pay - Prototype 1.html'.
-   Only change: $() resolves #host / #friend inside the journey's shadow roots. Driven by proto1-journey.js. */
+/* Screen renderers extracted from 'BookMyShow Split Pay - Prototype 1.html'.
+   Changes: $() resolves #host / #friend inside the journey's shadow roots; placeholder phone/email;
+   the replace search no longer grabs focus (it would scroll the page).
+   Driven by proto1-journey.js and affordances-journey.js. */
 window.Proto1 = (function(){
 const ROOTS={host:null,friend:null};
 const CONTACTS=[
@@ -64,7 +66,8 @@ const I={
  ticket:'<svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M3 8a2 2 0 002-2h14a2 2 0 002 2v2a2 2 0 000 4v2a2 2 0 00-2 2H5a2 2 0 00-2-2v-2a2 2 0 000-4z"/></svg>',
  ext:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>',
  timer:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a8680a" stroke-width="2.4" stroke-linecap="round" style="flex:none"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5M9.5 2.5h5"/></svg>',
- chevDown:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>'
+ chevDown:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>',
+ grip:'<svg width="12" height="16" viewBox="0 0 12 16" fill="currentColor"><circle cx="3" cy="3" r="1.3"/><circle cx="9" cy="3" r="1.3"/><circle cx="3" cy="8" r="1.3"/><circle cx="9" cy="8" r="1.3"/><circle cx="3" cy="13" r="1.3"/><circle cx="9" cy="13" r="1.3"/></svg>'
 };
 const sb=(dark)=>`<div class="sb ${dark?'dark':''}"><span>4:02 PM</span><span>5G ▮▮▮ 54%</span></div>`;
 const splitIcon=`<div class="split-icon"><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>`;
@@ -192,14 +195,21 @@ function hostWaiting(){
   const rem=remaining();
   const rows=S.friends.filter(f=>!f.coveredBy).map(f=>{const [lab,c]=hostLabel[f.stage]||['','n'];
     let act='';
-    if(f.stage==='prompt')act=`<button class="btn ghost sm" style="padding:6px 9px;font-size:11px" data-act="remind" data-id="${f.id}">Remind</button>`;
+    if(f.stage==='prompt'){
+      const cooling=f.remindUntil&&f.remindUntil>Date.now();
+      act=cooling?`<button class="btn ghost sm" disabled style="padding:6px 9px;font-size:11px;opacity:.45">Reminded</button>`:`<button class="btn ghost sm" style="padding:6px 9px;font-size:11px" data-act="remind" data-id="${f.id}">Remind</button>`;
+    }
     if(f.stage==='declined')act=`<button class="btn ghost sm" style="padding:6px 9px;font-size:11px" data-act="resend" data-id="${f.id}">Re-send</button>`;
     const canRemove=f.stage!=='paid';
-    const rmBtn=canRemove?`<button class="x" data-act="rmWait" data-id="${f.id}" title="Remove">×</button>`:'';
+    const rmBtn=canRemove?`<button class="x" data-act="askRemove" data-id="${f.id}" title="Remove">×</button>`:'';
     const covers=f.covers||[];
     const pill=covers.length?`<span class="cover-pill" data-act="openCover" data-id="${f.id}" title="Also paying for ${covers.map(id=>{const c=S.friends.find(x=>x.id===id);return c?c.name.split(' ')[0]:''}).join(', ')}">🎟 ×${1+covers.length}</span>`:'';
-    const addBtn=f.stage==='prompt'?`<button class="add-cover" data-act="openCover" data-id="${f.id}" title="Let ${f.name.split(' ')[0]} pay for someone else too">+</button>`:'';
-    return `<div class="prow"><div style="display:flex;align-items:center;gap:11px;flex:1;min-width:0">${av(f.name,'lg')}<div style="flex:1;min-width:0"><div class="nm">${f.name}</div><div class="sm" style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">${inr(displayShare(f))}${pill}</div></div></div><div class="prow-actions">${act}<span class="chip ${c}">${lab}</span>${addBtn}${rmBtn}</div></div>`}).join('');
+    const isSource=f.stage==='prompt'&&!covers.length;
+    const isTarget=f.stage==='prompt';
+    const handle=isSource?`<span class="drag-handle" draggable="true" title="Drag onto another name to pay for both">${I.grip}</span>`:`<span style="width:12px;flex:none"></span>`;
+    const nestedRows=covers.map(cid=>{const c=S.friends.find(x=>x.id===cid);if(!c)return'';return `<div class="nested-row">↳ ${av(c.name,'')}<span class="nm">${c.name}</span><span class="mut" style="margin-left:auto">${inr(c.share)}</span><button class="cover-rm" data-act="uncover" data-id="${c.id}" data-fid="${f.id}" title="Un-nest">×</button></div>`}).join('');
+    return `<div class="prow" data-fid="${f.id}" ${isTarget?'data-droppable="true"':''}><div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">${handle}${av(f.name,'lg')}<div style="flex:1;min-width:0"><div class="nm">${f.name}</div><div class="sm" style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">${inr(displayShare(f))}${pill}</div></div></div><div class="prow-actions">${act}<span class="chip ${c}">${lab}</span>${rmBtn}</div></div>${nestedRows}`}).join('');
+  const anyWaiting=S.friends.some(f=>f.stage==='prompt'&&!(f.covers&&f.covers.length));
   return `<div class="appbar"><span style="margin-left:6px">Waiting for friends</span></div>
   <div class="scroll">
     <div class="card" style="text-align:center">
@@ -211,6 +221,7 @@ function hostWaiting(){
       <div class="row"><b style="font-size:14px">${inr(paidAmt())} of ${inr(MOVIE.total)}</b><span class="mut">${S.friends.filter(f=>f.stage==='paid').length+1}/${S.friends.length+1} paid</span></div>
       <div class="bar" style="margin-top:8px"><i style="width:${paidAmt()/MOVIE.total*100}%"></i></div>
       <div class="prow" style="margin-top:4px">${av('Manasi Madan','lg')}<div style="flex:1"><div class="nm">You</div><div class="sm">${inr(S.hostShare)}</div></div><span class="chip g">${checkSvg}</span></div>
+      ${anyWaiting?`<div class="mut" style="font-size:11px;margin:4px 0 2px">Drag a name onto another to pay for both — it nests under that person.</div>`:''}
       ${rows}
     </div>
     <div class="info">${I.shield}<div>If someone doesn't pay in time you can cover their share or release seats for a refund.</div></div>
@@ -240,6 +251,43 @@ function coverDialog(id){
     <button class="btn grey block" style="margin-top:10px" data-act="closeCover">Done</button>
   </div>`;
 }
+function removeChoiceDialog(){
+  const f=S.friends.find(x=>x.id===S.removeTarget);if(!f)return'';
+  return `<div class="scrim" style="z-index:29" data-act="closeRemoveDialog"></div>
+  <div class="dialog" style="z-index:30">
+    <button class="dialog-close" data-act="closeRemoveDialog">×</button>
+    <h4 style="margin-top:0">Remove ${f.name.split(' ')[0]}?</h4>
+    <p>Replace this person or release their seat?</p>
+    <button class="btn block" data-act="startReplace">Replace this person</button>
+    <button class="btn ghost block" style="margin-top:8px" data-act="chooseRelease">Release their seat</button>
+  </div>`;
+}
+function replaceSuggestions(){
+  const q=S.query.trim().toLowerCase();const digits=q.replace(/\D/g,'');
+  const have=new Set(S.friends.filter(f=>f.id!==S.removeTarget).map(f=>f.phone.replace(/\D/g,'')));
+  let list=CONTACTS.filter(c=>!have.has(c.phone.replace(/\D/g,''))&&(!q||c.name.toLowerCase().includes(q)||(digits&&c.phone.replace(/\D/g,'').includes(digits))));
+  let out='';
+  if(digits.length===10&&!have.has(digits)&&!/[a-z]/.test(q)){out+=`<div class="sw-row">${av('#','lgw')}<div><div class="nm">+91 ${digits.slice(0,5)+' '+digits.slice(5)}</div><div class="sm">SMS invite</div></div><button class="sw-add" data-act="replaceNum" data-n="${digits}">Add</button></div>`}
+  out+=list.slice(0,4).map(c=>`<div class="sw-row">${av(c.name,'lgw')}<div><div class="nm">${c.name}</div><div class="sm">+91 ${c.phone}</div></div><button class="sw-add" data-act="replaceContact" data-id="${c.id}">+ Add</button></div>`).join('');
+  if(!out)out='<div style="font-size:11px;color:#999;padding:6px 0">No match. Enter a 10-digit number.</div>';
+  return out;
+}
+function replaceDialog(){
+  const f=S.friends.find(x=>x.id===S.removeTarget);if(!f)return'';
+  return `<div class="scrim" style="z-index:29" data-act="closeRemoveDialog"></div>
+  <div class="dialog" style="text-align:left;z-index:30;max-height:80%;overflow-y:auto">
+    <button class="dialog-close" data-act="closeRemoveDialog">×</button>
+    <h4 style="margin-top:0">Replace ${f.name.split(' ')[0]}</h4>
+    <div class="mut" style="margin-bottom:8px">Pick someone else to take this ${inr(f.share)} seat. ${f.name.split(' ')[0]} drops out.</div>
+    <div class="sw-search">${I.search}<input id="rq" placeholder="Name or mobile number" value="${S.query}" inputmode="text" autocomplete="off"></div>
+    <div id="rsugg">${replaceSuggestions()}</div>
+  </div>`;
+}
+function doReplace(f,name,phone){
+  (f.covers||[]).forEach(cid=>{const c=S.friends.find(x=>x.id===cid);if(c)c.coveredBy=null});
+  f.name=name;f.phone=phone;f.stage='prompt';f.pin='';f.app='';f.failCount=0;f.covers=[];f.coveredBy=null;f.refund=false;f.nudge=false;f.remindUntil=0;
+  toast('Replaced with '+name.split(' ')[0]);
+}
 function hostConfirmed(){
   const rows=[`<div class="row pr"><span>You</span><span>${inr(S.hostShare+(S.coverAmt||0))} <span class="chip g">${checkSvg}</span></span></div>`].concat(S.friends.filter(f=>!f.coveredBy).map(f=>{const paid=f.stage==='paid';const covers=f.covers||[];const nm=f.name+(covers.length?` <span class="cover-pill" style="margin-left:4px">🎟 ×${1+covers.length}</span>`:'');return `<div class="row pr"><span>${nm}</span><span>${inr(displayShare(f))} ${paid?`<span class="chip g">${checkSvg}</span>`:'<span class="chip n">Covered</span>'}</span></div>`})).join('');
   return `<div class="scroll" style="padding-top:26px;text-align:center">
@@ -255,20 +303,39 @@ function hostConfirmed(){
   </div>`;
 }
 function hostEnded(){
-  const title=S.phase==='released'?'Seats released':'Time ran out';
-  const sub=S.phase==='released'?'You released the seats. All payments are being refunded.':'Not everyone paid in time. Seats went back on sale.';
+  const title=S.phase==='released'?'Seats released':'Booking cancelled';
+  const sub=S.phase==='released'?'You released the seats. All payments are being refunded.':'You chose to cancel the whole booking instead of keeping a partial one.';
   const rows=[`<div class="row pr"><span>You</span><span>${inr(S.hostShare)}</span></div>`].concat(S.friends.filter(f=>f.refund).map(f=>`<div class="row pr"><span>${f.name}</span><span>${inr(f.share)}</span></div>`)).join('');
-  const paidFriends=S.friends.filter(f=>f.stage==='paid');
-  const canKeepPartial=S.phase==='expired'&&paidFriends.length>0&&paidFriends.length<S.friends.length;
   return `<div class="scroll" style="padding-top:26px;text-align:center">
     <div class="tick amber" style="margin:20px auto 14px">${I.clock}</div>
     <div style="font-size:22px;font-weight:700">${title}</div>
     <div class="mut" style="margin:4px 14px 0">${sub}</div>
     <div class="card" style="text-align:left;margin-top:18px"><b style="font-size:14px">Refunds to original UPI accounts</b><div style="margin-top:6px">${rows}</div><div class="mut" style="margin-top:6px">Usually within minutes, up to 3 working days.</div></div>
     <div class="info" style="margin-top:4px;background:#fff4e0;border:1px solid #ffe0b2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h0"/></svg><div style="color:#bf360c;font-size:12px">Your ₹25 hold fee was not refunded because the hold expired. Repeated expired holds may result in longer cooldowns.</div></div>
-    ${canKeepPartial?`<div class="mut" style="margin-top:10px">${paidFriends.length} of ${S.friends.length} friends paid before the clock ran out.</div>`:''}
     <button class="btn block" style="margin-top:8px" data-act="tryCooldown">Pick seats again</button>
-    ${canKeepPartial?`<button class="btn ghost block" style="margin-top:8px" data-act="keepPartial">See tickets for those who paid</button>`:''}
+  </div>`;
+}
+function expiryChoice(){
+  const rem=remaining();
+  const paidFriends=S.friends.filter(f=>f.stage==='paid');
+  const unpaidFriends=S.friends.filter(f=>f.stage!=='paid');
+  const rows=unpaidFriends.map(f=>`<div class="row pr"><span>${f.name}</span><span class="chip a">Unpaid</span></div>`).join('');
+  return `<div class="scroll" style="padding-top:18px;text-align:center">
+    <svg width="148" height="112" viewBox="0 0 148 112" style="margin:6px auto 4px;display:block">
+      <g><rect x="6" y="56" width="58" height="46" rx="9" fill="#f6c9d1"/><rect x="2" y="48" width="66" height="18" rx="8" fill="#dc3558"/><rect x="2" y="96" width="13" height="16" rx="4" fill="#ab2042"/><rect x="55" y="96" width="13" height="16" rx="4" fill="#ab2042"/></g>
+      <g transform="translate(80,0)"><rect x="6" y="56" width="58" height="46" rx="9" fill="#f6c9d1"/><rect x="2" y="48" width="66" height="18" rx="8" fill="#dc3558"/><rect x="2" y="96" width="13" height="16" rx="4" fill="#ab2042"/><rect x="55" y="96" width="13" height="16" rx="4" fill="#ab2042"/></g>
+      <g transform="rotate(-9 74 32)">
+        <rect x="26" y="4" width="96" height="56" rx="11" fill="#fff" stroke="#f5a623" stroke-width="2.5"/>
+        <line x1="92" y1="10" x2="92" y2="54" stroke="#f5a623" stroke-width="2" stroke-dasharray="4 4"/>
+        <text x="48" y="43" font-size="30" font-weight="800" fill="#f5a623" font-family="Roboto,sans-serif">?</text>
+      </g>
+    </svg>
+    <div style="font-size:22px;font-weight:700">Time's up</div>
+    <div class="mut" style="margin:4px 14px 0">${paidFriends.length} of ${S.friends.length} friends paid. Pay ${inr(rem)} to keep all seats, or release the unpaid seats.</div>
+    ${unpaidFriends.length?`<div class="card" style="text-align:left;margin-top:14px"><b style="font-size:14px">Still unpaid</b><div style="margin-top:6px">${rows}</div></div>`:''}
+    <button class="btn block" style="margin-top:14px" data-act="payKeepAll">Pay ${inr(rem)} to keep all seats</button>
+    <button class="btn ghost block" style="margin-top:8px" data-act="releaseUnpaid">Release unpaid seats</button>
+    <div class="mut" style="margin-top:10px;font-size:11.5px">Either way, the ₹25 hold fee isn't refunded — the hold still ran out.</div>
   </div>`;
 }
 function partialConfirmed(){
@@ -304,7 +371,8 @@ function renderHost(){
     h+=`<div class="screen">${hostConfirm()}${overlay}</div>`;
   }
   else if(S.hostScreen==='pay')h+=`<div class="screen" style="background:#7a7a7a">${hostPay()}</div>`;
-  else if(S.hostScreen==='waiting')h+=`<div class="screen">${hostWaiting()}${S.dialog==='release'?`<div class="scrim" style="z-index:29"></div><div class="dialog"><h4>Release the seats?</h4><p>Seats go back on sale and ${inr(paidAmt())} already paid is refunded.</p><button class="btn block" data-act="doRelease">Release &amp; refund</button><button class="btn grey block" style="margin-top:8px" data-act="closeDialog">Keep waiting</button></div>`:''}${S.coverFor?coverDialog(S.coverFor):''}${S.toast?`<div class="toast">${S.toast}</div>`:''}</div>`;
+  else if(S.hostScreen==='waiting')h+=`<div class="screen">${hostWaiting()}${S.dialog==='release'?`<div class="scrim" style="z-index:29"></div><div class="dialog"><h4>Release the seats?</h4><p>Seats go back on sale and ${inr(paidAmt())} already paid is refunded.</p><button class="btn block" data-act="doRelease">Release &amp; refund</button><button class="btn grey block" style="margin-top:8px" data-act="closeDialog">Keep waiting</button></div>`:''}${S.dialog==='removeChoice'?removeChoiceDialog():''}${S.dialog==='replace'?replaceDialog():''}${S.coverFor?coverDialog(S.coverFor):''}${S.toast?`<div class="toast">${S.toast}</div>`:''}</div>`;
+  else if(S.hostScreen==='expiryChoice')h+=`<div class="screen">${expiryChoice()}</div>`;
   else if(S.hostScreen==='confirmed')h+=`<div class="screen">${hostConfirmed()}</div>`;
   else if(S.hostScreen==='partialConfirmed')h+=`<div class="screen">${partialConfirmed()}</div>`;
   else h+=`<div class="screen">${hostEnded()}${S.dialog==='cooldown'?`<div class="scrim" style="z-index:29" data-act="closeCooldown"></div><div class="dialog"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5M9.5 2.5h5"/></svg><h4>Cooldown active</h4><p>You can try booking again in <b style="color:var(--red)">3 hours</b>.<br><br>Expired seat holds affect availability for everyone. The cooldown helps ensure seats are held by people ready to pay.</p><button class="btn block" data-act="reset" style="margin-top:4px">Browse other showtimes</button><button class="btn grey block" data-act="closeCooldown" style="margin-top:8px">OK</button></div>`:''}</div>`;
@@ -315,6 +383,7 @@ function renderHost(){
   if(newScroll&&scrollTop)newScroll.scrollTop=scrollTop;
 
   const q=$('#q');if(q){q.addEventListener('input',e=>{S.query=e.target.value;$('#sugg').innerHTML=suggestions()});}
+  const rq=$('#rq');if(rq){rq.addEventListener('input',e=>{S.query=e.target.value;$('#rsugg').innerHTML=replaceSuggestions()});}
   const ae=$('.amt-edit');if(ae){ae.focus();ae.select();ae.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();act('commitAmt',{id:ae.dataset.id})}});ae.addEventListener('blur',()=>{setTimeout(()=>act('commitAmt',{id:ae.dataset.id}),100)})}
 }
 
@@ -420,6 +489,11 @@ function upiApp(f){
 }
 function friendResult(f){
   const manasi='Manasi';
+  if(S.phase==='holdExpired'){
+    if(f.stage==='paid')return `<div class="screen">${sb()}<div class="center"><div class="tick amber">${I.clock}</div><div style="font-size:20px;font-weight:700">Time's up</div><div class="mut" style="margin-top:6px">Your payment of ${inr(displayShare(f))} went through. ${manasi} is deciding what happens to the rest — we'll update you in a moment.</div></div></div>`;
+    if(f.coveredBy){const payer=S.friends.find(x=>x.id===f.coveredBy);const payerName=payer?payer.name.split(' ')[0]:'A friend';return `<div class="screen">${sb()}<div class="center"><div class="tick amber">${I.clock}</div><div style="font-size:20px;font-weight:700">Time's up</div><div class="mut" style="margin-top:6px">${payerName} already paid for you. ${manasi} is deciding what happens next.</div></div></div>`;}
+    return `<div class="screen">${sb()}<div class="center"><div class="tick amber">${I.clock}</div><div style="font-size:20px;font-weight:700">Time's up</div><div class="mut" style="margin-top:6px">You didn't pay in time. ${manasi} is deciding what happens next — hang tight.</div></div></div>`;
+  }
   if(f.stage==='paid'&&f.refund&&(S.phase==='expired'||S.phase==='released'))return `<div class="screen">${sb()}<div class="center"><div class="tick amber">${I.clock}</div><div style="font-size:20px;font-weight:700">Booking didn't go through</div><div class="mut" style="margin-top:6px">${S.phase==='expired'?'The seat hold ran out':manasi+' released the seats'}. Your ${inr(f.share)} is being refunded.</div></div></div>`;
   if(f.stage==='paid'&&!f.refund&&S.phase==='expired')return `<div class="screen">${sb()}<div class="center"><div class="tick">${I.check}</div><div style="font-size:20px;font-weight:700">Your ticket is confirmed!</div><div class="mut" style="margin:6px 0 16px">The hold ran out for some others, but your payment went through in time — ${manasi} confirmed your seat anyway.</div></div></div>`;
   if(f.stage==='paid'){
@@ -460,8 +534,9 @@ function renderSide(){
   if(S.hostScreen==='confirm')cur=S.friends.length?3:2;
   if(S.hostScreen==='pay')cur=4;
   if(S.hostScreen==='waiting'){const f=af();cur=f&&['chooser','upi','processing'].includes(f.stage)?6:5}
-  if(S.phase==='confirmed'||S.hostScreen==='partialConfirmed')cur=7;
-  const names=['Select seats from the seat map','Review booking, tap Split Payment','Add friends from contacts or by number','Pay your own share via UPI','Friends get a compact popup alert','Friend pays in their UPI app','All paid: booking confirmed'];
+  if(S.hostScreen==='expiryChoice')cur=6;
+  if(S.phase==='confirmed'||S.hostScreen==='partialConfirmed'||S.hostScreen==='ended')cur=7;
+  const names=['Select seats from the seat map','Review booking, tap Split Payment','Add friends from contacts or by number','Pay your own share via UPI','Friends get a compact popup alert','Friend pays in their UPI app','Booking resolved — paid, kept or released'];
   $('#side').innerHTML=`
   <section><h3>Flow</h3><ol class="steps">${names.map((n,i)=>`<li class="${i+1<cur||cur===7?'done':i+1===cur?'cur':''}">${n}</li>`).join('')}</ol></section>
   <section><h3>Demo controls</h3><div class="demo">
@@ -476,8 +551,10 @@ function renderSide(){
     <li><b>Compact friend popup.</b> ~4 fingers tall, sits over the lock screen wallpaper — not a full-screen takeover.</li>
     <li><b>10-min hold, no extension.</b> Keeps inventory moving.</li>
     <li><b>Editable split.</b> Equal by default; tap any friend's amount to customise. Host absorbs the remainder.</li>
-    <li><b>Pay-for-a-friend.</b> While waiting, tap + next to anyone to fold a stuck friend's share into theirs — one payment covers both, no separate chase.</li>
-    <li><b>Partial confirmation on expiry.</b> If the hold runs out with some — not all — friends paid, the host can choose to confirm tickets just for who paid instead of cancelling everyone; the rest flash as "Not confirmed" and their seats release.</li>
+    <li><b>Pay-for-a-friend, by drag.</b> While waiting, drag one friend's name onto another — the dragged friend nests under the one they're dropped on, who now pays for both in one go. No modal needed to discover it; the grip handle plus a hint line are the only affordance.</li>
+    <li><b>Removing someone asks first.</b> Tapping × opens a choice — replace them with someone else (same seat, same share, fresh request) or release their seat outright — instead of silently deleting a row.</li>
+    <li><b>Expiry is a decision, not a verdict.</b> When the clock hits zero with people still unpaid, the host is asked directly: pay the shortfall to keep every seat, or release just the unpaid ones and keep what's confirmed. Friends see a neutral "organiser is deciding" screen in the meantime, not a premature refund or confirmation message.</li>
+    <li><b>Reminder cooldown.</b> "Remind" goes grey for 30 seconds after use so a host can't spam a friend's phone with nudges.</li>
     <li><b>Theatre-side impact.</b> Held seats show as "Pending" on the seat map, keeping inventory transparent for the exhibitor. The 10-min cap + hold fee limit ghost-booking risk.</li>
   </ul></section>
   <section><h3>Why this variant</h3><div style="font-size:12px;color:#555;line-height:1.6">
@@ -486,6 +563,7 @@ function renderSide(){
     <p><b>WhatsApp link (Proto 3)</b> meets users where their group already lives and uses familiar payment apps. Trade-off: less control over split amounts (equal only) and the organiser can't see real-time payment progress inside BMS.</p>
   </div></section>`;
 }
+function toast(t){S.toast=t;renderHost();setTimeout(()=>{if(S.toast===t){S.toast='';renderHost()}},2200)}
 function addFriend(name,phone){
   if(S.friends.length>=MOVIE.n-1)return;
   const f={id:'f'+Date.now()+Math.random().toString(16).slice(2,5),name,phone,share:0,stage:'idle',pin:'',app:'',showDetails:false,failCount:0,covers:[],coveredBy:null};
@@ -500,5 +578,10 @@ function endHold(kind){
   S.phase=kind;S.hostScreen='ended';
   S.friends.forEach(f=>{if(f.stage==='paid')f.refund=true;else if(!['declined','cancelled'].includes(f.stage))f.stage=kind==='expired'?'expired':'cancelled'});
 }
-return {ROOTS, get S(){return S}, fresh, addFriend, sendRequests, shares, endHold, checkDone, renderHost, renderFriend, friendHome, CONTACTS, MOVIE, inr};
+function holdExpire(){
+  S.phase='holdExpired';
+  S.friends.forEach(f=>{if(!['paid','declined','cancelled'].includes(f.stage))f.stage='expired'});
+  S.hostScreen='expiryChoice';
+}
+return {ROOTS, get S(){return S}, fresh, addFriend, sendRequests, shares, endHold, holdExpire, checkDone, renderHost, renderFriend, friendHome, CONTACTS, MOVIE, inr, remaining};
 })();

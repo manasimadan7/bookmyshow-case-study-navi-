@@ -16,7 +16,8 @@ A case study on **splitting a BookMyShow booking with friends**: why one person 
 5. **Current app journey**, then a switch into dark mode for the solutions.
 6. **User journey 01: Prototype 3 (WhatsApp link)**: "Taking the conversation to a familiar space".
 7. **Why WhatsApp is risky**, then **User journey 02: Prototype 1 (inline checkout)**: "Keeping the whole split inside BookMyShow".
-8. **The trade-off**: app users vs successful purchases.
+8. **User testing**: a talk-aloud session on Prototype 1, what it showed (understanding of steps, cancelling affordances, sense of urgency), and the fixes built from it, shown on the host's phone: handling replacements, a last chance to pay and save seats, and paced reminders.
+9. **The trade-off**: app users vs successful purchases.
 
 Each user journey shows the **host's phone on the left and a friend's phone on the right**, with step dots, Previous / Next (or ← → keys), a finger showing what gets tapped next, and **"What if…"** branches: a failed payment, someone not paying, someone who doesn't know the sender, dropping a friend, the 10-minute hold running out, and only some people paying.
 
@@ -43,6 +44,7 @@ Any static server works too, e.g. `npx http-server .`
 | `nav.js` | The page-contents bar at the top. |
 | `journeys/journey.js` | Shared journey stepper: phones, dots, Previous/Next, "What if…" chips, tap hints. |
 | `journeys/proto3-*`, `journeys/proto1-*` | Screens extracted from the two prototypes (`*-screens.js`, `*.css`) and the scripted journeys (`*-journey.js`). |
+| `journeys/affordances-journey.js` | The user-testing fixes, played on the host's phone in the user-testing section. |
 | `assets/` | Images and SVGs exported from Figma. |
 
 Animations respect the "reduce motion" accessibility setting.
