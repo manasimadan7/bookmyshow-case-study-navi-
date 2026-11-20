@@ -49,7 +49,7 @@ img { display: block; }
 .stage {
   position: relative;
   width: 1728px;
-  height: 18938px; /* Figma frame is 11928; extended for Frame 23, Shifting gears, user testing, the dark-mode gaps and the trade-off section */
+  height: 20838px; /* Figma frame is 11928; extended for Frame 23, Shifting gears, user testing, the dark-mode gaps and the trade-off section */
   margin: 0 auto;
   z-index: 1;                           /* above the dark-mode reveal */
 }
@@ -213,8 +213,22 @@ body.is-dark .hero-btn { color: var(--ink-2); }
 .f-test .j-title, .f-test .j-line, .f-test .j-count { color: #fff; }
 .f-test .j-count { opacity: .7; }
 .f-test .j-controls { background: transparent; }
-.test-frame { border: 1px solid #fff; border-radius: 30px; }
-.test-frame > div { zoom: 1.3; }
+/* phone slot for the user-testing fixes: no outline, phone at 1.45× (360×740 → 522×1073) */
+.test-frame { border: 0; }
+.test-frame > div { zoom: 1.45; }
+
+/* ---------- 16 · Improving the UI (before / after) ---------- */
+.f-ui { color: #fff; }
+.ui-sub { font-size: 20px; line-height: 1.5; letter-spacing: -0.22px; font-weight: 300; color: rgba(255,255,255,0.75); }
+.ui-tag { font-size: 13px; line-height: 20px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.ui-tag.after { color: var(--red); }
+.ui-slot > div { zoom: .76; }   /* prototype phone 360×740 → 274×562 */
+.ui-arrow { font-size: 40px; line-height: 40px; color: rgba(255,255,255,0.35); font-weight: 300; }
+.ui-kicker { font-size: 14px; font-weight: 500; letter-spacing: .08em; color: var(--red); }
+.ui-title { margin-top: 6px; font-size: 32px; line-height: 1.3; font-weight: 300; letter-spacing: -0.352px; color: #fff; }
+.ui-points { list-style: none; margin: 22px 0 0; padding: 0; }
+.ui-points li { position: relative; padding: 14px 0 14px 0; font-size: 18px; line-height: 1.5; font-weight: 300; color: rgba(255,255,255,0.82); border-top: 1px solid rgba(255,255,255,0.12); }
+.ui-points b { display: block; margin-bottom: 2px; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: #fff; }
 
 /* ---------- 14 · Trade-off seesaw ---------- */
 .seesaw svg, .seesaw img { position: absolute; display: block; }
@@ -522,6 +536,18 @@ body.is-dark .arrow-ink path { fill: #8a8a96; }
   .f-test .test-chips .j-chip { height: 42px; font-size: 14px; padding: 0 16px; }
   .f-test .j-controls.r { background: rgba(0,0,0,0.88); }
   .test-frame.r { align-self: center; }
+
+  /* 16 · improving the UI: notes first, then before and after */
+  .ui-sub { font-size: 16px; }
+  .ui-row { gap: 12px !important; margin-top: 28px; }
+  .ui-row > .ui-notes { order: 1; }
+  .ui-row > .ui-tag.before { order: 2; }
+  .ui-row > .ui-slot.before { order: 3; }
+  .ui-row > .ui-tag.after { order: 4; }
+  .ui-row > .ui-slot.after { order: 5; }
+  .ui-slot.r { align-self: center; }
+  .ui-title { font-size: 24px; }
+  .ui-points li { font-size: 15px; padding: 10px 0; }
 
   /* 14 · trade-off */
   .f-end { align-items: center; }

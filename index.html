@@ -6,7 +6,7 @@
 <title>Split Booking Case Study</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Inter:wght@400;500&family=EB+Garamond&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=DM+Sans&family=EB+Garamond&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -582,15 +582,53 @@ but it is not a reliable <u>task system.</u></p><span>Manasi madan</span></div>
         <div class="j-dots" role="tablist" aria-label="Steps"></div>
         <button type="button" class="j-btn j-next primary" aria-label="Next step">Next →</button>
       </div>
-      <div class="a r test-frame j-slot" data-fit style="left:1088px;top:1544px;width:563px;height:1008px"><div data-phone="host"></div></div>
+      <div class="a r test-frame j-slot" data-fit style="left:1088px;top:1530px;width:563px;height:1080px"><div data-phone="host"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== 16 · Improving the UI: grouping and hierarchy (before = Prototype 1, after = redesign; journeys/ui-compare.js) ===== -->
+  <section class="frame f-ui" data-toc="UI refinements" style="left:0;top:17506px;width:1728px;height:1900px">
+    <h2 class="a r test-h" style="left:150px;top:100px;width:900px">Improving the UI for better<br>grouping and <span class="red">hierarchy</span></h2>
+    <p class="a r ui-sub" style="left:150px;top:268px;width:900px">The flows stay the same. Two key screens inside BookMyShow are regrouped so related things sit together, with one clear headline and one main action.</p>
+    <div class="ov ui-row">
+      <div class="a r ui-notes" style="left:960px;top:434px;width:620px">
+        <p class="ui-kicker">01</p>
+        <h3 class="ui-title">Checkout: the split widget</h3>
+        <ul class="ui-points">
+          <li><b>Grouping</b>Split payment becomes one bright card in the checkout, with the invite list inside it, so everything about friends sits in one place.</li>
+          <li><b>Hierarchy</b>A title and a one-line promise lead: “Let your friends pre-pay in real time”. Each contact is a name over a number, with one Add button.</li>
+          <li><b>Action</b>Tap to open, search, tap Add. A tick replaces Add, so it is clear who is in.</li>
+        </ul>
+      </div>
+      <p class="a r ui-tag before" style="left:150px;top:400px">Before</p>
+      <div class="a r ui-slot before" data-fit style="left:150px;top:434px;width:274px;height:562px"><div data-ui="checkout-before"></div></div>
+      <span class="a mh ui-arrow" style="left:452px;top:695px" aria-hidden="true">→</span>
+      <p class="a r ui-tag after" style="left:520px;top:400px">After</p>
+      <div class="a r ui-slot after" data-fit style="left:520px;top:434px;width:274px;height:562px"><div data-ui="checkout-after"></div></div>
+    </div>
+    <div class="ov ui-row">
+      <div class="a r ui-notes" style="left:960px;top:1174px;width:620px">
+        <p class="ui-kicker">02</p>
+        <h3 class="ui-title">Host: waiting for friends</h3>
+        <ul class="ui-points">
+          <li><b>Grouping</b>The screen splits into two parts: the booking (ticket and hold timer) on top, the party below.</li>
+          <li><b>Hierarchy</b>Time left is the biggest thing on screen. Party invites shows 4/10 seats filled as dots before any names.</li>
+          <li><b>Action</b>Each friend is one row: tickets, Nudge and their status, filled for Confirmed and outlined for Pending.</li>
+        </ul>
+      </div>
+      <p class="a r ui-tag before" style="left:150px;top:1140px">Before</p>
+      <div class="a r ui-slot before" data-fit style="left:150px;top:1174px;width:274px;height:562px"><div data-ui="waiting-before"></div></div>
+      <span class="a mh ui-arrow" style="left:452px;top:1435px" aria-hidden="true">→</span>
+      <p class="a r ui-tag after" style="left:520px;top:1140px">After</p>
+      <div class="a r ui-slot after" data-fit style="left:520px;top:1174px;width:274px;height:562px"><div data-ui="waiting-after"></div></div>
     </div>
   </section>
 
   <!-- ===== Blank gap: dark mode zooms back out here, before the trade-off (darkmode.js) ===== -->
-  <div class="dark-gap dark-gap-out" aria-hidden="true" style="left:0;top:17506px;width:1728px;height:900px"></div>
+  <div class="dark-gap dark-gap-out" aria-hidden="true" style="left:0;top:19406px;width:1728px;height:900px"></div>
 
   <!-- ===== 14 · The trade-off (Figma Group 1, node 27:489) ===== -->
-  <section class="frame f-end" data-toc="Trade-off" style="left:384px;top:18406px;width:1005px;height:382px">
+  <section class="frame f-end" data-toc="Trade-off" style="left:384px;top:20306px;width:1005px;height:382px">
     <div class="a r seesaw" data-fit style="left:269px;top:0;width:448px;height:232px" aria-hidden="true">
       <svg class="ss-stand" width="448" height="232" viewBox="0 0 448 232"><path d="M230.5 134 L303 231.5 H169.5 Z" fill="#D9D9D9"/></svg>
       <div class="ss-tilt">
@@ -609,6 +647,7 @@ but it is not a reliable <u>task system.</u></p><span>Manasi madan</span></div>
 <script src="journeys/proto1-screens.js"></script>
 <script src="journeys/proto1-journey.js"></script>
 <script src="journeys/affordances-journey.js"></script>
+<script src="journeys/ui-compare.js"></script>
 <script src="motion.js"></script>
 <script src="nav.js"></script>
 <script src="darkmode.js"></script>

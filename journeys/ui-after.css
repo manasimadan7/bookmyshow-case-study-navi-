@@ -1,0 +1,95 @@
+/* "After" screens for the UI-refinement section, built from the Figma redesigns.
+   Loaded after proto1.css inside each shadow root. */
+
+/* ---------- Split Payment widget (Figma 35:517 closed, 35:543 open, 36:1218 picked) ---------- */
+.sp {
+  position: relative; width: 317px; height: 78px; margin: 0 auto 10px; overflow: hidden;
+  background: #e8354d; border-radius: 20px; color: #fff; font-family: Roboto, system-ui, sans-serif;
+  transition: height .45s cubic-bezier(.4,0,.2,1); cursor: pointer !important;
+}
+.sp[data-state="open"], .sp[data-state="picked"] { height: 303px; }
+/* widget shown on its own (no phone), centred in the 360×740 slot */
+.sp-solo { width: 360px; height: 740px; display: flex; align-items: center; justify-content: center; }
+.sp-solo .sp { zoom: 1.12; margin: 0; box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+.sp-solo.before .splitw { width: 317px; flex: none; margin: 0; zoom: 1.12; box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+.sp-solo.before .splitw * { cursor: default !important; }
+.sp-solo.before input { pointer-events: none; }
+.sp p { margin: 0; }
+.sp-icon {
+  position: absolute; left: 15px; top: 9px; width: 75px; height: 60px; border-radius: 10px; overflow: hidden;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,.25)); transition: top .45s cubic-bezier(.4,0,.2,1);
+}
+.sp:not([data-state="closed"]) .sp-icon { top: 15px; }
+.sp-icon span { position: absolute; display: flex; align-items: center; justify-content: center; }
+.sp-icon img { width: 24px; height: 24px; display: block; }
+.sp-icon .ta { left: 10px; top: 22px; width: 33.433px; height: 33.433px; }
+.sp-icon .ta img { transform: rotate(54.93deg); }
+.sp-icon .tb { left: 33px; top: 8px; width: 28.118px; height: 28.118px; }
+.sp-icon .tb img { transform: rotate(79.06deg); }
+.sp-t, .sp-s { position: absolute; transform: translateX(-50%); white-space: nowrap; text-align: center; line-height: 1.5; }
+.sp-t { left: 159px; top: 15px; font-size: 20px; font-weight: 500; letter-spacing: -0.22px; }
+.sp-s { left: 189.5px; top: 45px; font-size: 12px; font-weight: 400; letter-spacing: -0.132px; }
+.sp-search {
+  position: absolute; left: 16px; top: 81px; width: 287px; height: 26px; box-sizing: border-box;
+  display: flex; align-items: center; gap: 8px; padding-left: 12px;
+  background: #fff; border: 1px solid #bbb; border-radius: 8px;
+  font-family: 'DM Sans', Roboto, sans-serif; font-size: 12px; color: #636363;
+}
+.sp-search img { width: 16px; height: 16px; }
+.sp-list { position: absolute; left: 16px; top: 121px; width: 287px; height: 165px; background: #fff; border-radius: 10px; overflow: hidden; }
+.sp-search, .sp-list { opacity: 0; transition: opacity .3s .1s; }
+.sp:not([data-state="closed"]) .sp-search, .sp:not([data-state="closed"]) .sp-list { opacity: 1; }
+.sp-list .nm, .sp-list .ph { position: absolute; left: 16px; white-space: nowrap; line-height: 1.5; }
+.sp-list .nm { font-size: 12px; color: #000; letter-spacing: -0.132px; }
+.sp-list .ph { font-size: 10px; color: #757575; letter-spacing: -0.11px; }
+.sp-list .add {
+  position: absolute; left: 211px; width: 57px; height: 24px; display: grid; place-items: center;
+  background: rgba(0,0,0,.06); border-radius: 6px; font: 400 13px/1 -apple-system, 'SF Pro Text', Inter, sans-serif; color: rgba(0,0,0,.85);
+  transition: opacity .2s;
+}
+.sp-list .ok { position: absolute; left: 227px; top: 22px; width: 24px; height: 24px; opacity: 0; transform: scale(.4); transition: opacity .2s, transform .3s cubic-bezier(.34,1.56,.64,1); }
+.sp[data-state="picked"] .add.first { opacity: 0; }
+.sp[data-state="picked"] .ok { opacity: 1; transform: none; }
+
+/* ---------- Host waiting screen (Figma 36:1269, 440×956) inside the phone ---------- */
+.bw-scroll { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.bw-scroll::-webkit-scrollbar { display: none; }
+.bw { position: relative; width: 440px; height: 956px; zoom: .7773; background: #fff; color: #000; font-family: Inter, system-ui, sans-serif; }
+.bw p { margin: 0; position: absolute; white-space: nowrap; }
+.bw img { position: absolute; display: block; }
+.bw-top { position: absolute; left: 0; top: 0; width: 451px; height: 301px; background: #d9d9d9; }
+.bw-card { left: 24px; top: 51px; width: 170px; height: 199px; }
+.bw-perf { left: 39.61px; top: 196.35px; width: 138.776px; height: 1px; }
+.bw .t8, .bw .t21, .bw .t7, .bw .t9, .bw .t15 { left: 39px; color: #1a1f29; }
+.bw .t8 { font-size: 8px; line-height: 9.2px; font-weight: 700; }
+.bw .t21 { top: 88px; font-size: 21px; line-height: 24.15px; font-weight: 700; }
+.bw .t7 { font-size: 7px; line-height: 8.05px; color: #5e6670; }
+.bw .t7.sb { font-weight: 600; }
+.bw .t7.md { font-weight: 500; }
+.bw .t9 { font-size: 9px; line-height: 10.35px; font-weight: 400; }
+.bw .t9.sb { font-weight: 600; }
+.bw .t15 { top: 222px; font-size: 15px; line-height: 17.25px; font-weight: 700; }
+.bw-arc { left: 314.5px; top: 59px; width: 64.7px; height: 91.5px; }
+.bw-ring { left: 223px; top: 59px; width: 183px; height: 183px; }
+.bw-time, .bw-left { transform: translate(-50%, -50%); font-family: -apple-system, 'SF Pro Display', Inter, sans-serif; font-weight: 500; line-height: 20.62px; }
+.bw-time { left: 312.97px; top: 144.25px; font-size: 30.93px; font-variant-numeric: tabular-nums; }
+.bw-left { left: 317.9px; top: 172.6px; font-size: 15.465px; }
+.bw-h { left: 25px; top: 343px; width: 111px; white-space: normal !important; font-family: -apple-system, 'SF Pro Display', Inter, sans-serif; font-weight: 500; font-size: 20px; line-height: 19px; }
+.bw-dots { left: 143px; top: 358px; width: 255px; height: 20px; }
+.bw-row {
+  position: absolute; left: 27px; width: 389px; box-sizing: border-box; padding: 20px 9px 20px 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: #fff; border-radius: 20px; filter: drop-shadow(0 4px 2px rgba(0,0,0,.05)); box-shadow: 0 0 0 .5px rgba(0,0,0,.03);
+}
+.bw-row .l, .bw-row .r { display: flex; align-items: center; }
+.bw-row .l { gap: 14px; }
+.bw-row .r { gap: 15px; }
+.bw-row .n { font-size: 20px; line-height: 24px; color: #000; }
+.bw-row .pill { height: 24px; padding: 0 10px; display: inline-flex; align-items: center; border-radius: 30px; background: #f4f4f4; font-size: 12px; color: #7a7a7a; }
+.bw-row .b {
+  height: 26px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 4px; font-size: 13px; font-weight: 500; border: 1px solid; padding: 0 16px;
+}
+.bw-row .nudge { min-width: 76px; border-color: #3a3a3a; color: #333; }
+.bw-row .yes { min-width: 101px; background: #e8354d; border-color: #e8354d; color: #fff; }
+.bw-row .wait { min-width: 87px; border-color: #e8354d; color: #e8354d; }
